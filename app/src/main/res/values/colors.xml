@@ -3,6 +3,8 @@
     <color name="window_background">#FFF5F5F5</color>
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1565C0</color>
+    <color name="twentyColorPrimary">#cc2196F3</color>
+    <color name="theme_black_7f">#8f000000</color>
     <color name="colorAccent">#E91E63</color>
     <color name="bg">#f2f2f2</color>
     <color name="tab_title_normal_color">#999999</color>
@@ -14,9 +16,11 @@
     <color name="white">#ffffffff</color>
     <color name="half_white">#7FFFFFFF</color>
     <color name="sixty_write">#60ffffff</color>
+    <color name="twenty_write">#ccffffff</color>
     <color name="sixty_black">#60000000</color>
     <color name="eighty_black">#cc000000</color>
     <color name="eighty_white">#ccffffff</color>
+    <color name="night_white">#19ffffff</color>
     <color name="normal_color">#9e9e9f</color>
     <color name="axis_color">#999999</color>
     <color name="axis_text_color">#999999</color>
