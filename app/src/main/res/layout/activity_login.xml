@@ -17,7 +17,7 @@
 
 
         <com.debughao.column.widget.view.CircleImageView
-            android:id="@+id/iv_login_avtar"
+            android:id="@+id/iv_login_avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
@@ -46,11 +46,13 @@
                 android:layout_height="match_parent"
                 android:background="@color/twenty_write"/>
             <EditText
+                android:id="@+id/et_phone"
                 android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:textSize="14sp"
+                android:inputType="phone"
                 android:textColorHint="@color/twenty_write"
                 android:textColor="@color/twenty_write"
                 android:hint="请输入手机号"/>
@@ -76,11 +78,13 @@
                 android:layout_height="match_parent"
                 android:background="@color/twenty_write"/>
             <EditText
+                android:id="@+id/et_Password"
                 android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/transparent"
                 android:textSize="14sp"
+                android:inputType="textPassword"
                 android:textColor="@color/twenty_write"
                 android:textColorHint="@color/twenty_write"
                 android:hint="请输入密码"/>
@@ -91,6 +95,7 @@
             android:gravity="center_vertical"
             >
             <TextView
+                android:id="@+id/tv_forgetPassword"
                 android:layout_marginLeft="20dp"
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
@@ -100,6 +105,7 @@
                 android:textSize="13sp"
                 />
             <TextView
+                android:id="@+id/tv_Register"
                 android:layout_marginRight="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
@@ -110,6 +116,7 @@
                 />
         </RelativeLayout>
         <Button
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/button_login_bg"

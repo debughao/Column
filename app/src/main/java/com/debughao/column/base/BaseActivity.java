@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.debughao.column.App;
 import com.debughao.column.R;
 import com.debughao.column.utils.UiUtis;
 import com.debughao.column.widget.layout.SwipeBackLayout;
@@ -22,7 +23,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
     public Context mContext;
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +30,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
         this.setContentView(this.getLayoutId());
         ButterKnife.bind(this);
         this.initView();
-        this.initPresenter();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         ButterKnife.unbind(this);
     }
 
@@ -93,11 +91,5 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     public abstract void initView();
 
-    /**
-     * 简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
-     */
-    public abstract void initPresenter();
-    interface  BaseActivityDao<T extends BasePresenter, E extends BaseModel>{
 
-    };
 }
