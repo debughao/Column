@@ -1,24 +1,25 @@
 package com.debughao.column.ui.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 
 import com.debughao.column.R;
 
 
-public class MyFragment extends Fragment {
+public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
 
     private String mParam1;
     private String mParam2;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public static MyFragment newInstance(String param1, String param2) {
         MyFragment fragment = new MyFragment();
@@ -42,10 +43,22 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
-        TextView text = (TextView) view.findViewById(R.id.tv_my);
-        text.setText(mParam1);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh_My);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
+                android.R.color.holo_blue_bright, android.R.color.holo_orange_light);
+        swipeRefreshLayout.setOnRefreshListener(this);
         return view;
     }
 
 
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.post(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        }));
+
+    }
 }

@@ -75,7 +75,6 @@ public class LoginModelImpl implements LoginModel, HttpListener<String> {
 
     public interface OnLoginListener {
         void onSuccess();
-
         void onFailure(String msg, Exception e);
     }
 }

@@ -11,5 +11,6 @@ import com.debughao.column.parm.LoginParm;
  */
 public interface LoginModel  {
      void getXrsf(Context context);
+
      void login(LoginParm loginParm,LoginModelImpl.OnLoginListener onLoginListener);
 }

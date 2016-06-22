@@ -7,7 +7,7 @@
     android:background="@color/window_background"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+   >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -24,9 +24,10 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
             <TextView
+              android:id="@+id/tv_mainTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/app_name"
+                android:text="@string/recommendColumn"
                 android:textSize="18dp"
                 android:textColor="@android:color/white"
                 android:gravity="center"/>

@@ -66,6 +66,18 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
     }
 
     @Override
+    public void showLoading() {
+
+    }
+
+
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:

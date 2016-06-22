@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     Toolbar toolbar;
     @Bind(R.id.bottom_navigation_bar)
     BottomNavigationBar bottomNavigationBar;
+    @Bind(R.id.tv_mainTitle)
+    TextView mMainTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private void setDefaultFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        coloumnFragment = ColoumnFragment.newInstance("专栏", "");
+        coloumnFragment = new ColoumnFragment();
         transaction.replace(R.id.id_content, coloumnFragment);
         transaction.commit();
     }
@@ -65,20 +68,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         FragmentTransaction transaction = fm.beginTransaction();
         switch (position) {
             case 0:
+                mMainTitle.setText(R.string.recommendColumn);
                 if (coloumnFragment == null) {
-                    coloumnFragment = ColoumnFragment.newInstance("专栏", "");
+                    coloumnFragment = new ColoumnFragment();
                 }
                 transaction.replace(R.id.id_content, coloumnFragment);
 
                 break;
             case 1:
+                mMainTitle.setText(R.string.recommendArticle);
                 if (articleFragment == null) {
-                    articleFragment = ArticleFragment.newInstance("文章", "");
+                    articleFragment = new ArticleFragment();
                 }
                 transaction.replace(R.id.id_content, articleFragment);
 
                 break;
             case 2:
+                mMainTitle.setText(R.string.my);
                 if (myFragment == null) {
                     myFragment = MyFragment.newInstance("我的", "");
                 }

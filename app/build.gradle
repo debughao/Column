@@ -35,4 +35,6 @@ dependencies {
     compile 'com.yolanda.nohttp:nohttp:1.0.2'
     compile 'com.orhanobut:logger:1.13'
     compile 'org.jsoup:jsoup:1.9.2'
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
