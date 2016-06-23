@@ -1,5 +1,6 @@
 package com.debughao.column.ui.Activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -48,6 +49,11 @@ public class LoginActivity extends BaseActivity implements LoginView, View.OnCli
         mLogin.setOnClickListener(this);
         mLoginPresenter = new LoginPresenterImpl(mContext, this);
         mLoginPresenter.getXsrf();
+    }
+
+    @Override
+    protected void getBundleExtras(Bundle extras) {
+
     }
 
 

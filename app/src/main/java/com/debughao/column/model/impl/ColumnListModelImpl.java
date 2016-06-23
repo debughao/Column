@@ -4,12 +4,10 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.debughao.column.commons.Urls;
 import com.debughao.column.data.bean.Column;
-import com.debughao.column.model.ColumnModel;
+import com.debughao.column.model.ColumnListModel;
 import com.debughao.column.nohttp.CallServer;
-import com.debughao.column.nohttp.FastJsonRequest;
 import com.debughao.column.nohttp.HttpListener;
 import com.orhanobut.logger.Logger;
 import com.yolanda.nohttp.NoHttp;
@@ -26,7 +24,7 @@ import java.util.List;
  * Date : 2016/6/2213:48
  * description :
  */
-public class ColumnModelImpl implements ColumnModel, HttpListener<String>{
+public class ColumnListModelImpl implements ColumnListModel, HttpListener<String>{
     private  OnLoadColumnListListener mOnLoadColumnListListener;
    private  Context mContext;
     @Override
@@ -42,10 +40,8 @@ public class ColumnModelImpl implements ColumnModel, HttpListener<String>{
 
     @Override
     public void onSucceed(int what, Response<String> response) {
-
         JSONArray jsonArray;
         jsonArray= JSON.parseArray(response.get());
-        Logger.d(jsonArray.toString());
         List<Column>  columns= JSON.parseArray(jsonArray.toString(),Column.class);
         mOnLoadColumnListListener.onSuccess(columns);
     }

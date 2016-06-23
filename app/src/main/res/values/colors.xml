@@ -43,5 +43,7 @@
     <color name="tab_line2_bg">#F2F2F2</color>
     <color name="fafafa">#f0f0f0</color>
     <color name="reveal_color">#1b000000</color>
+    <color name="topic_font">#83bad7</color>
+    <color name="topic_bg">#e7f3f9</color>
     <!-- 微信主页底部导航线条2 -->
 </resources>

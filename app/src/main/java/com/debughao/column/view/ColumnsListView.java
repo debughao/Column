@@ -8,8 +8,6 @@ import java.util.List;
 /**
  * Created by admin on 2016/6/22.
  */
-public interface ColumnsView extends BaseView {
-
+public interface ColumnsListView extends BaseView {
     void onRefreshData(List<Column> columns);
-    void onLoadData();
 }

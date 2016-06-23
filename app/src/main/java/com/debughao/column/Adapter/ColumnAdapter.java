@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
 import com.debughao.column.data.bean.Column;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 

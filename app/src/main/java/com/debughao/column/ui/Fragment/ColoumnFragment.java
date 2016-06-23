@@ -1,8 +1,6 @@
 package com.debughao.column.ui.Fragment;
 
-import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,8 +16,9 @@ import com.debughao.column.data.bean.Column;
 import com.debughao.column.eventbus.EventCenter;
 import com.debughao.column.presenter.ColumnPresenter;
 import com.debughao.column.presenter.impl.ColumnPresenterImpl;
+import com.debughao.column.ui.Activity.ColumnDetailActivity;
 import com.debughao.column.utils.MyToast;
-import com.debughao.column.view.ColumnsView;
+import com.debughao.column.view.ColumnsListView;
 import com.debughao.column.widget.view.DividerItemDecoration;
 import com.orhanobut.logger.Logger;
 
@@ -31,7 +30,7 @@ import butterknife.Bind;
 /**
  *
  */
-public class ColoumnFragment extends BaseFragment implements ColumnsView, SwipeRefreshLayout.OnRefreshListener {
+public class ColoumnFragment extends BaseFragment implements ColumnsListView, SwipeRefreshLayout.OnRefreshListener {
     private int pageIndex = 0;
     @Bind(R.id.swipeRefresh_Column)
     SwipeRefreshLayout mSwipeRefreshWidget;
@@ -153,15 +152,14 @@ public class ColoumnFragment extends BaseFragment implements ColumnsView, SwipeR
         pageIndex += Urls.PAZE_SIZE;
     }
 
-    @Override
-    public void onLoadData() {
-
-    }
 
     private ColumnAdapter.OnItemClickListener mOnItemClickListener = new ColumnAdapter.OnItemClickListener() {
         @Override
-        public void onItemClick(View view, int position) {
-
+        public void onItemClick(View view, int onItemClick) {
+            Bundle bundle=new Bundle();
+            bundle.putString("columnName",mData.get(onItemClick).getName());
+            bundle.putString("columnUrl",mData.get(onItemClick).getUrl());
+            readyGo(ColumnDetailActivity.class,bundle);
         }
     };
 
@@ -178,10 +176,11 @@ public class ColoumnFragment extends BaseFragment implements ColumnsView, SwipeR
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-              Logger.d("loading more data");
+
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisibleItem + 1 == mAdapter.getItemCount()) {
                 //加载更多
+                Logger.d("is loading more data");
                 mColumnPresenter.onLoadColumnList(pageIndex + Urls.PAZE_SIZE);
 
             }

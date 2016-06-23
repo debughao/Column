@@ -9,7 +9,7 @@ import com.debughao.column.presenter.LoginPresenter;
 import com.debughao.column.view.LoginView;
 
 /**
- * Created by admin on 2016/6/21.
+ * Created by debughao on 2016/6/21.
  */
 public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLoginListener {
     private Context mContext;

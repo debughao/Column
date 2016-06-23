@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -31,9 +32,9 @@
         </activity>
         <activity
             android:name=".ui.Activity.LoginActivity"
-            android:theme="@style/LoginAppTheme">
-        </activity>
-        <activity android:name=".ui.Activity.FlashActivity"></activity>
+            android:theme="@style/LoginAppTheme"></activity>
+        <activity android:name=".ui.Activity.FlashActivity" />
+        <activity android:name=".ui.Activity.ColumnDetailActivity"></activity>
     </application>
 
 </manifest>

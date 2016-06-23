@@ -4,12 +4,12 @@ import com.debughao.column.R;
 import com.debughao.column.base.BaseFragment;
 import com.debughao.column.data.bean.Column;
 import com.debughao.column.eventbus.EventCenter;
-import com.debughao.column.view.ColumnsView;
+import com.debughao.column.view.ColumnsListView;
 
 import java.util.List;
 
 
-public class ArticleFragment extends BaseFragment implements ColumnsView{
+public class ArticleFragment extends BaseFragment implements ColumnsListView {
 
     @Override
     protected void onFirstUserVisible() {
@@ -71,8 +71,5 @@ public class ArticleFragment extends BaseFragment implements ColumnsView{
 
     }
 
-    @Override
-    public void onLoadData() {
 
-    }
 }

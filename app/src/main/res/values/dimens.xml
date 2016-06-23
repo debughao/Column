@@ -19,6 +19,7 @@
     <dimen name="e_text_size">15sp</dimen>
     <dimen name="wheel_text_w">140dp</dimen>
     <dimen name="page_margin">12dp</dimen>
+    <dimen name="title_collapsing">23sp</dimen>
     <!-- 标题大小 -->
     <dimen name="title_height">50dip</dimen>
     <dimen name="text_size_small">14sp</dimen>
