@@ -38,7 +38,10 @@ public class ColoumnFragment extends BaseFragment implements ColumnsView, SwipeR
     @Bind(R.id.recycle_viewColumn)
     RecyclerView mRecyclerView;
     private ColumnPresenter mColumnPresenter;
-
+    /**
+     * 是否已被加载过一次，第二次就不再去请求数据了
+     */
+    private boolean mHasLoadedOnce;
     private ColumnAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private ArrayList<Column> mData;
@@ -72,17 +75,20 @@ public class ColoumnFragment extends BaseFragment implements ColumnsView, SwipeR
         mSwipeRefreshWidget.setOnRefreshListener(this);
         mColumnPresenter = new ColumnPresenterImpl(this, getActivity());
         mRecyclerView.setHasFixedSize(true);
-
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL_LIST));
-        mAdapter = new ColumnAdapter(getActivity().getApplicationContext());
+        mAdapter = new ColumnAdapter(getActivity().getApplicationContext(),mData);
         mAdapter.setOnItemClickListener(mOnItemClickListener);
+        mAdapter.isShowFooter(false);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
-        onRefresh();
+        if (!mHasLoadedOnce){
+            mColumnPresenter.onLoadColumnList(pageIndex);
+        }
+        //onRefresh();
     }
 
 
@@ -115,6 +121,7 @@ public class ColoumnFragment extends BaseFragment implements ColumnsView, SwipeR
 
     @Override
     public void hideLoading() {
+        mHasLoadedOnce = true;
         mSwipeRefreshWidget.setRefreshing(false);
     }
 
@@ -129,7 +136,6 @@ public class ColoumnFragment extends BaseFragment implements ColumnsView, SwipeR
 
     @Override
     public void onRefreshData(List<Column> columns) {
-        Logger.d("onRefreshData" + columns);
         mAdapter.isShowFooter(true);
         if (mData == null) {
             mData = new ArrayList<Column>();
@@ -172,11 +178,10 @@ public class ColoumnFragment extends BaseFragment implements ColumnsView, SwipeR
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
+              Logger.d("loading more data");
             if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == mAdapter.getItemCount()
-                    && mAdapter.isShowFooter()) {
+                    && lastVisibleItem + 1 == mAdapter.getItemCount()) {
                 //加载更多
-                Logger.d("loading more data");
                 mColumnPresenter.onLoadColumnList(pageIndex + Urls.PAZE_SIZE);
 
             }

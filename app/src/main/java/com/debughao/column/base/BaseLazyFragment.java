@@ -31,8 +31,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.debughao.column.eventbus.EventCenter;
+import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Field;
+
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
@@ -51,11 +53,9 @@ public abstract class BaseLazyFragment extends Fragment {
     private boolean isPrepared;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (isBindEventBusHere()) {
             EventBus.getDefault().register(this);
         }
@@ -63,7 +63,6 @@ public abstract class BaseLazyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         if (getContentViewLayoutID() != 0) {
             return inflater.inflate(getContentViewLayoutID(), null);
         } else {
@@ -185,7 +184,6 @@ public abstract class BaseLazyFragment extends Fragment {
     protected abstract void onUserInvisible();
 
 
-
     /**
      * init all views and add events
      */
@@ -281,10 +279,6 @@ public abstract class BaseLazyFragment extends Fragment {
             Snackbar.make(((Activity) mContext).getWindow().getDecorView(), msg, Snackbar.LENGTH_SHORT).show();
         }
     }
-
-
-
-
 
 
     public void onEventMainThread(EventCenter eventCenter) {

@@ -28,7 +28,7 @@ public class App extends Application{
         //初始化nohttp
         NoHttp.initialize(this);
         Logger.setTag("zhihuzhanlan");
-        Logger.setDebug(true);
+        Logger.setDebug(false);
         com.orhanobut.logger.Logger.init("zhihuColumn");
     }
 

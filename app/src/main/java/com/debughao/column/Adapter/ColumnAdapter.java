@@ -28,8 +28,9 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private OnItemClickListener mOnItemClickListener;
 
-    public ColumnAdapter(Context context) {
+    public ColumnAdapter(Context context , List<Column> columnList) {
         this.mContext = context;
+        this.mData=columnList;
     }
 
     public void setmDate(List<Column> data) {

@@ -14,6 +14,7 @@ import com.debughao.column.R;
 import com.debughao.column.ui.Fragment.ArticleFragment;
 import com.debughao.column.ui.Fragment.ColoumnFragment;
 import com.debughao.column.ui.Fragment.MyFragment;
+import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     BottomNavigationBar bottomNavigationBar;
     @Bind(R.id.tv_mainTitle)
     TextView mMainTitle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 mMainTitle.setText(R.string.recommendColumn);
                 if (coloumnFragment == null) {
                     coloumnFragment = new ColoumnFragment();
+
                 }
                 transaction.replace(R.id.id_content, coloumnFragment);
 
