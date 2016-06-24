@@ -1,108 +1,139 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.debughao.column.widget.view.YCanScrollview
+    style="@style/DoubleMatchParent"
+    android:scrollbars="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/bg"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
- <TextView
-     style="@style/ColumnInfofragmentTitle"
-     android:text="关于"/>
+    <TextView
+        style="@style/ColumnInfofragmentTitle"
+        android:text="关于" />
+
     <LinearLayout
+        android:layout_height="85dp"
+        android:layout_width="match_parent"
         android:layout_marginTop="5dp"
-        style="@style/HeightWrapContent"
         android:orientation="horizontal">
+
         <com.debughao.column.widget.view.CircleImageView
             android:id="@+id/iv_columnDetailAvatar"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:src="@drawable/ic_default"
-            android:transitionName="@string/transition_news_img"
             app:civ_border_color="@color/twenty_write"
-            app:civ_border_width="2dp"
-            />
+            app:civ_border_width="2dp" />
+
         <LinearLayout
             style="@style/DoubleMatchParent"
             android:layout_marginLeft="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_columnDetailtitle"
-                style="@style/ColumnInfofragmentTitle"
-                />
+                style="@style/DoubleWrapContent"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/b_text_size"  />
+
             <TextView
                 android:id="@+id/tv_fragment_columnDscription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minLines="3"
-                android:maxLines="3"
                 android:ellipsize="end"
-                android:textColor="@color/black_text"
-                android:textSize="@dimen/c_text_size"
-               />
+                android:maxLines="3"
+                android:minLines="3"
+                android:textColor="@color/tab_title_normal_color"
+                android:textSize="@dimen/b_text_size" />
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
     <TextView
         style="@style/ColumnInfofragmentTitle"
-        android:text="专栏话题"/>
+        android:text="专栏话题" />
+
     <com.debughao.column.widget.view.ZHTopicView
         android:id="@+id/zhv_columnDetailTopic"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        />
+        android:paddingTop="10dp" />
+
     <TextView
         style="@style/ColumnInfofragmentTitle"
-        android:text="专栏介绍"/>
+        android:text="专栏介绍" />
+
     <TextView
-        android:layout_marginTop="5dp"
         android:id="@+id/tv_fragment_columnIntroduce"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black_text"
-        android:textSize="@dimen/c_text_size"
-        />
+        android:layout_marginTop="5dp"
+        android:textColor="@color/tab_title_normal_color"
+        android:textSize="@dimen/b_text_size" />
+
     <TextView
         style="@style/ColumnInfofragmentTitle"
-        android:text="编辑 "/>
+        android:text="编辑 " />
+
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        style="@style/HeightWrapContent"
         android:orientation="horizontal">
+
         <com.debughao.column.widget.view.CircleImageView
             android:id="@+id/iv_columnEditorsAvatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_default"
-            android:transitionName="@string/transition_news_img"
             app:civ_border_color="@color/twenty_write"
-            app:civ_border_width="2dp"
-            />
+            app:civ_border_width="2dp" />
+
         <LinearLayout
             style="@style/DoubleMatchParent"
             android:layout_marginLeft="10dp"
             android:orientation="vertical">
-            <TextView
-                android:layout_marginTop="2dp"
-                android:id="@+id/tv_columnEditorsInfo"
-                style="@style/DoubleWrapContent"
-                android:textColor="@color/tab_title_normal_color"
-                android:textSize="@dimen/b_text_size"
-                android:text="订阅号：mutongyumu | 一个深刻的家具设计师 |"
-                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_columnEditorsName"
+                    style="@style/DoubleWrapContent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/black_text"
+                    android:textSize="@dimen/b_text_size" />
+
+                <TextView
+                  android:layout_toRightOf="@id/tv_columnEditorsName"
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/tv_columnEditorsInfo"
+                    style="@style/HeightWrapContent"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/tab_title_normal_color"
+                    android:textSize="@dimen/b_text_size"
+
+                    />
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/tv_fragment_columnEditorsPostsNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                style="@style/HeightWrapContent"
+                android:layout_marginTop="2dp"
                 android:textColor="@color/tab_title_normal_color"
-                android:textSize="@dimen/c_text_size"
-                android:text="10 篇文章"
+                android:textSize="@dimen/b_text_size"
+
                 />
         </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
+</com.debughao.column.widget.view.YCanScrollview>

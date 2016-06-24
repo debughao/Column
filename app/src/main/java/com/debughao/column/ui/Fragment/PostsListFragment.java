@@ -1,5 +1,6 @@
 package com.debughao.column.ui.Fragment;
 
+
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,17 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.debughao.column.adapter.ColumnAdapter;
 import com.debughao.column.R;
+import com.debughao.column.adapter.PostsAdapter;
 import com.debughao.column.base.BaseFragment;
 import com.debughao.column.commons.Urls;
-import com.debughao.column.data.bean.Column;
+import com.debughao.column.data.bean.ColumnDetail;
+import com.debughao.column.data.bean.Posts;
 import com.debughao.column.eventbus.EventCenter;
-import com.debughao.column.presenter.ColumnPresenter;
-import com.debughao.column.presenter.impl.ColumnPresenterImpl;
-import com.debughao.column.ui.Activity.ColumnDetailActivity;
+import com.debughao.column.presenter.ColumnDetailPresenter;
+import com.debughao.column.presenter.impl.ColumnDetailPresenterImpl;
 import com.debughao.column.utils.MyToast;
-import com.debughao.column.view.ColumnsListView;
+import com.debughao.column.view.ColumnDetailView;
 import com.debughao.column.widget.view.DividerItemDecoration;
 import com.orhanobut.logger.Logger;
 
@@ -27,33 +28,37 @@ import java.util.List;
 
 import butterknife.Bind;
 
-/**
- *
- */
-public class ColoumnFragment extends BaseFragment implements ColumnsListView, SwipeRefreshLayout.OnRefreshListener {
+
+public class PostsListFragment extends BaseFragment implements ColumnDetailView, SwipeRefreshLayout.OnRefreshListener {
     private int pageIndex = 0;
-    @Bind(R.id.swipeRefresh_Column)
+    private static final String ARG_PARAM1 = "param1";
+
+    @Bind(R.id.swipeRefresh_postList)
     SwipeRefreshLayout mSwipeRefreshWidget;
-    @Bind(R.id.recycle_viewColumn)
+    @Bind(R.id.recycle_viewpostList)
     RecyclerView mRecyclerView;
-    private ColumnPresenter mColumnPresenter;
+
+    private ColumnDetailPresenter mColumnDetailPresenter;
     /**
      * 是否已被加载过一次，第二次就不再去请求数据了
      */
     private boolean mHasLoadedOnce;
-    private ColumnAdapter mAdapter;
+    private PostsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<Column> mData;
+    private ArrayList<Posts> mData;
+    private String columnName;
 
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.fragment_column;
+    public static PostsListFragment newInstance(String param1) {
+        PostsListFragment fragment = new PostsListFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
     @Override
     protected void onFirstUserVisible() {
-
 
     }
 
@@ -69,27 +74,33 @@ public class ColoumnFragment extends BaseFragment implements ColumnsListView, Sw
 
     @Override
     protected void initViewsAndEvents() {
+        if (getArguments() != null) {
+            columnName = getArguments().getString(ARG_PARAM1);
+        }
         mSwipeRefreshWidget.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
                 android.R.color.holo_blue_bright, android.R.color.holo_orange_light);
         mSwipeRefreshWidget.setOnRefreshListener(this);
-        mColumnPresenter = new ColumnPresenterImpl(this, getActivity());
+        mColumnDetailPresenter = new ColumnDetailPresenterImpl(this, getActivity());
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL_LIST));
-        mAdapter = new ColumnAdapter(getActivity().getApplicationContext(),mData);
+        mAdapter = new PostsAdapter(getActivity().getApplicationContext(), mData);
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mAdapter.isShowFooter(false);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
-        if (!mHasLoadedOnce){
-            mColumnPresenter.onLoadColumnList(pageIndex);
+        if (!mHasLoadedOnce) {
+            mColumnDetailPresenter.getColumnPostList(pageIndex, columnName);
         }
-        //onRefresh();
     }
 
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_posts_list;
+    }
 
     @Override
     protected void onEventComming(EventCenter eventCenter) {
@@ -100,6 +111,7 @@ public class ColoumnFragment extends BaseFragment implements ColumnsListView, Sw
     protected boolean isBindEventBusHere() {
         return false;
     }
+
 
     @Override
     public void showMsg(String msg) {
@@ -130,21 +142,26 @@ public class ColoumnFragment extends BaseFragment implements ColumnsListView, Sw
         if (mData != null) {
             mData.clear();
         }
-        mColumnPresenter.onLoadColumnList(pageIndex);
+        mColumnDetailPresenter.getColumnPostList(pageIndex, columnName);
     }
 
     @Override
-    public void onRefreshData(List<Column> columns) {
+    public void onRefreshColumnDetailData(ColumnDetail columnDetail) {
+
+    }
+
+    @Override
+    public void onRefreshColumnPostsData(List<Posts> postsList) {
         mAdapter.isShowFooter(true);
         if (mData == null) {
-            mData = new ArrayList<Column>();
+            mData = new ArrayList<>();
         }
-        mData.addAll(columns);
+        mData.addAll(postsList);
         if (pageIndex == 0) {
             mAdapter.setmDate(mData);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (columns == null || columns.size() == 0) {
+            if (postsList == null || postsList.size() == 0) {
                 mAdapter.isShowFooter(false);
             }
             mAdapter.notifyDataSetChanged();
@@ -152,14 +169,10 @@ public class ColoumnFragment extends BaseFragment implements ColumnsListView, Sw
         pageIndex += Urls.PAZE_SIZE;
     }
 
-
-    private ColumnAdapter.OnItemClickListener mOnItemClickListener = new ColumnAdapter.OnItemClickListener() {
+    private PostsAdapter.OnItemClickListener mOnItemClickListener = new PostsAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int onItemClick) {
-            Bundle bundle=new Bundle();
-            bundle.putString("columnName",mData.get(onItemClick).getName());
-            bundle.putString("columnUrl",mData.get(onItemClick).getUrl());
-            readyGo(ColumnDetailActivity.class,bundle);
+
         }
     };
 
@@ -181,7 +194,7 @@ public class ColoumnFragment extends BaseFragment implements ColumnsListView, Sw
                     && lastVisibleItem + 1 == mAdapter.getItemCount()) {
                 //加载更多
                 Logger.d("is loading more data");
-                mColumnPresenter.onLoadColumnList(pageIndex + Urls.PAZE_SIZE);
+                mColumnDetailPresenter.getColumnPostList(pageIndex + Urls.PAZE_SIZE, columnName);
 
             }
         }

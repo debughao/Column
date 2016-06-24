@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.debughao.column.R;
 import com.debughao.column.data.bean.ColumnDetail;
+import com.debughao.column.data.bean.PostTopicsBean;
 
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class ZHTopicView extends HorizontalScrollView {
     private String TAG = "PostTopicsBeanView";
-    private List<ColumnDetail.PostTopicsBean> PostTopicsBeans;
+    private List<PostTopicsBean> PostTopicsBeans;
     private boolean b;
 
     public ZHTopicView(Context context) {
@@ -76,7 +77,7 @@ public class ZHTopicView extends HorizontalScrollView {
         return false;
     }
 
-    public void setPostTopicsBean(List<ColumnDetail.PostTopicsBean> list) {
+    public void setPostTopicsBean(List<PostTopicsBean> list) {
         removeAllViews();
         this.b = true;
         this.PostTopicsBeans = list;
@@ -84,7 +85,7 @@ public class ZHTopicView extends HorizontalScrollView {
         linearLayoutCompat.setOrientation(LinearLayoutCompat.HORIZONTAL);
         Iterator iterator = PostTopicsBeans.iterator();
         while (iterator.hasNext()) {
-            final ColumnDetail.PostTopicsBean localPostTopicsBean = (ColumnDetail.PostTopicsBean) iterator.next();
+            final PostTopicsBean localPostTopicsBean = (PostTopicsBean) iterator.next();
             TextView localTextView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.text, linearLayoutCompat, false);
             localTextView.setText(localPostTopicsBean.getName());
 //            localTextView.setOnClickListener(new OnClickListener() {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/HeightWrapContent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <LinearLayout
+        style="@style/HeightWrapContent"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_item_postsAvatar"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_default" />
+
+        <LinearLayout
+            style="@style/HeightWrapContent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_item_postsTitle"
+                style="@style/HeightWrapContent"
+                android:text="自闭症"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/c_text_size" />
+
+            <TextView
+                android:id="@+id/tv_item_postsDscription"
+                style="@style/HeightWrapContent"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textColor="@color/tab_title_normal_color"
+                android:textSize="@dimen/b_text_size" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tv_item_postsFollowersCount"
+            style="@style/DoubleWrapContent"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/normal_color"
+            android:textSize="@dimen/b_text_size" />
+
+        <TextView
+            android:id="@+id/tv_item_postsCount"
+            style="@style/DoubleWrapContent"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/normal_color"
+            android:textSize="@dimen/b_text_size" />
+    </RelativeLayout>
+</LinearLayout>

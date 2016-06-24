@@ -7,6 +7,6 @@ package com.debughao.column.presenter;
  * description :
  */
 public interface ColumnDetailPresenter {
-    void getColumnDetail(String ColumnName);
-    void getColumnPostList(int pageIndex,String ColumnName);
+    void getColumnDetail(String columnName);
+    void getColumnPostList(int pageIndex,String columnName);
 }

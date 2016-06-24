@@ -56,6 +56,7 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=getActivity();
         if (isBindEventBusHere()) {
             EventBus.getDefault().register(this);
         }

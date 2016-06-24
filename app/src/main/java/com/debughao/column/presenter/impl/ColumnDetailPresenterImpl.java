@@ -18,7 +18,7 @@ import java.util.List;
  * Date : 2016/6/23 13:11
  * description :
  */
-public class ColumnDetailPresenterImpl implements ColumnDetailPresenter,ColumnDetailModelImpl.OnLoadColumnDetailListener,ColumnDetailModelImpl.OnLoadColumnPostsListListener {
+public class ColumnDetailPresenterImpl implements ColumnDetailPresenter, ColumnDetailModelImpl.OnLoadColumnDetailListener, ColumnDetailModelImpl.OnLoadColumnPostsListListener {
     private ColumnDetailView mColumnDetailView;
     private ColumnDetailModel mColumnDetailModel;
     private Context mContext;
@@ -31,30 +31,29 @@ public class ColumnDetailPresenterImpl implements ColumnDetailPresenter,ColumnDe
 
     @Override
     public void getColumnDetail(String columnName) {
-        mColumnDetailModel.onLoadColumnDetail(Urls.COLUMNDETAIL+columnName,this);
+        mColumnDetailModel.onLoadColumnDetail(Urls.COLUMNDETAIL + columnName, this);
     }
 
     @Override
-    public void getColumnPostList(int pageIndex,String ColumnName) {
+    public void getColumnPostList(int pageIndex, String ColumnName) {
         if (pageIndex == 0) {
             mColumnDetailView.showLoading();
         }
-        Urls.columnName=ColumnName;
-        mColumnDetailModel.onLoadColumnPostsList(Urls.PAZE_SIZE,pageIndex,Urls.COLUMNPOSTS,this);
+        mColumnDetailModel.onLoadColumnPostsList(Urls.PAZE_SIZE, pageIndex, Urls.COLUMNPOSTS + ColumnName + "/posts", this);
     }
 
     @Override
     public void onSuccess(ColumnDetail columnDetail) {
-            mColumnDetailView.onRefreshColumnDetailData(columnDetail);
+        mColumnDetailView.onRefreshColumnDetailData(columnDetail);
     }
 
     @Override
     public void onSuccess(List<Posts> postses) {
-
+        mColumnDetailView.onRefreshColumnPostsData(postses);
     }
 
     @Override
     public void onFailure(String msg, Exception e) {
-
+        mColumnDetailView.showMsg(msg);
     }
 }

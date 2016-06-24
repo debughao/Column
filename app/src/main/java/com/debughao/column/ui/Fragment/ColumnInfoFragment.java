@@ -4,6 +4,8 @@ package com.debughao.column.ui.Fragment;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
 import com.debughao.column.base.BaseFragment;
 import com.debughao.column.data.bean.ColumnDetail;
@@ -17,13 +19,15 @@ import butterknife.Bind;
 
 public class ColumnInfoFragment extends BaseFragment {
     @Bind(R.id.tv_columnDetailtitle)
-   TextView mTitle;
+    TextView mTitle;
     @Bind(R.id.tv_fragment_columnDscription)
     TextView mDscription;
     @Bind(R.id.tv_fragment_columnIntroduce)
     TextView mIntroduce;
     @Bind(R.id.tv_columnEditorsInfo)
     TextView mEditorsInfo;
+    @Bind(R.id.tv_columnEditorsName)
+    TextView mEditorsName;
     @Bind(R.id.tv_fragment_columnEditorsPostsNum)
     TextView mEditorsPostsNum;
     @Bind(R.id.iv_columnEditorsAvatar)
@@ -65,9 +69,20 @@ public class ColumnInfoFragment extends BaseFragment {
     protected void initViewsAndEvents() {
         if (getArguments() != null) {
             columnDetail = (ColumnDetail) getArguments().getSerializable(ARG_PARAM1);
-            Logger.d(columnDetail.toString());
-           // mZHTopicView.setPostTopicsBean(columnDetail.getPostTopics());
+            setViewContent(columnDetail);
         }
+    }
+
+    private void setViewContent(ColumnDetail columnDetail) {
+        mTitle.setText(columnDetail.getName());
+        mDscription.setText(columnDetail.getIntro());
+        mIntroduce.setText(columnDetail.getDescription());
+        mEditorsPostsNum.setText(columnDetail.getPostsCount()+" 篇文章");
+        mEditorsInfo.setText(""+columnDetail.getCreator().getBio());
+        mEditorsName.setText(columnDetail.getCreator().getName());
+        Glide.with(mContext).load(columnDetail.getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mColumnAvatar);
+        Glide.with(mContext).load(columnDetail.getCreator().getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mEditorsAvatar);
+        mZHTopicView.setPostTopicsBean(columnDetail.getPostTopics());
     }
 
     @Override

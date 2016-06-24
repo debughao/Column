@@ -2,6 +2,8 @@ package com.debughao.column.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,29 +13,32 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
-import com.debughao.column.data.bean.Column;
+import com.debughao.column.data.bean.Posts;
 
 import java.util.List;
 
 /**
- *
+ * Author : debughao
+ * Email : 863260364@qq.com
+ * Date : 2016/6/24 11:35
+ * description :
  */
-public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
-    private List<Column> mData;
+    private List<Posts> mData;
     private boolean mShowFooter = true;
     private Context mContext;
 
     private OnItemClickListener mOnItemClickListener;
 
-    public ColumnAdapter(Context context , List<Column> columnList) {
+    public PostsAdapter(Context context, List<Posts> columnList) {
         this.mContext = context;
-        this.mData=columnList;
+        this.mData = columnList;
     }
 
-    public void setmDate(List<Column> data) {
+    public void setmDate(List<Posts> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
@@ -56,7 +61,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                                       int viewType) {
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_column, parent, false);
+                    .inflate(R.layout.item_posts, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {
@@ -71,17 +76,21 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
-
-            Column column = mData.get(position);
-            if (column == null) {
+            Posts posts = mData.get(position);
+            if (posts == null) {
                 return;
             }
-            ((ItemViewHolder) holder).mTitle.setText(column.getName());
-            ((ItemViewHolder) holder).mDesc.setText(column.getDescription());
-            ((ItemViewHolder) holder).mPostsCount.setText(column.getPostsCount()+" 篇文章");
-            ((ItemViewHolder) holder).mFollowersCount.setText(""+column.getFollowersCount()+" 人关注");
-            Glide.with(mContext).load(column.getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(((ItemViewHolder) holder).mNewsImg);
+            ((ItemViewHolder) holder).mTitle.setText(posts.getTitle());
+            ((ItemViewHolder) holder).mDesc.setText(Html.fromHtml(posts.getContent()).toString().trim());
+            ((ItemViewHolder) holder).mPostsCount.setText(posts.getAuthor().getName() + " · " /*+ posts.getPublishedTime()*/);
+            ((ItemViewHolder) holder).mFollowersCount.setText(posts.getLikesCount() + " 赞 ·" + posts.getCommentsCount() + " 条评论");
+            String titleImage=posts.getTitleImage();
+            if (TextUtils.isEmpty(titleImage)){
+                ((ItemViewHolder) holder).mNewsImg.setVisibility(View.GONE);
+            }else {
+                Glide.with(mContext).load(titleImage).diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(((ItemViewHolder) holder).mNewsImg);
+            }
         }
     }
 
@@ -94,7 +103,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mData.size() + begin;
     }
 
-    public Column getItem(int position) {
+    public Posts getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 
@@ -132,11 +141,11 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public ItemViewHolder(View v) {
             super(v);
-            mTitle = (TextView) v.findViewById(R.id.tv_item_columnTitle);
-            mDesc = (TextView) v.findViewById(R.id.tv_item_columneDscription);
-            mNewsImg = (ImageView) v.findViewById(R.id.iv_item_columnAvatar);
-            mFollowersCount = (TextView) v.findViewById(R.id.tv_item_columnFollowersCount);
-            mPostsCount = (TextView) v.findViewById(R.id.tv_item_columnPostsCount);
+            mTitle = (TextView) v.findViewById(R.id.tv_item_postsTitle);
+            mDesc = (TextView) v.findViewById(R.id.tv_item_postsDscription);
+            mNewsImg = (ImageView) v.findViewById(R.id.iv_item_postsAvatar);
+            mFollowersCount = (TextView) v.findViewById(R.id.tv_item_postsFollowersCount);
+            mPostsCount = (TextView) v.findViewById(R.id.tv_item_postsCount);
             v.setOnClickListener(this);
         }
 
@@ -147,5 +156,4 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
     }
-
 }

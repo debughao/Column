@@ -7,4 +7,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="columnInformation">专栏信息</string>
     <string name="columnArticle">全部文章</string>
+    <string name="followColumn">关注专栏</string>
+    <string name="unFollowColumn">已关注</string>
 </resources>

@@ -86,34 +86,7 @@ public class Column implements Serializable {
         this.avatar = avatar;
     }
 
-    public static class AvatarBean {
-        private String id;
-        private String template;
 
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getTemplate() {
-            return template.replace("{id}",id).replace("{size}","b");
-        }
-
-        public void setTemplate(String template) {
-            this.template = template;
-        }
-
-        @Override
-        public String toString() {
-            return "AvatarBean{" +
-                    "id='" + id + '\'' +
-                    ", template='" + template.replace("{id}",id).replace("{size}","b") + '\'' +
-                    '}';
-        }
-    }
 
     @Override
     public String toString() {

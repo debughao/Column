@@ -1,14 +1,12 @@
 package com.debughao.column.ui.Activity;
 
-import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -19,15 +17,14 @@ import com.debughao.column.R;
 import com.debughao.column.base.BaseActivity;
 import com.debughao.column.data.bean.ColumnDetail;
 import com.debughao.column.data.bean.Posts;
-import com.debughao.column.model.ColumnListModel;
 import com.debughao.column.presenter.ColumnDetailPresenter;
 import com.debughao.column.presenter.impl.ColumnDetailPresenterImpl;
 import com.debughao.column.ui.Fragment.ColumnInfoFragment;
+import com.debughao.column.ui.Fragment.PostsListFragment;
 import com.debughao.column.utils.MyToast;
 import com.debughao.column.view.ColumnDetailView;
-import com.debughao.column.view.ColumnsListView;
 import com.debughao.column.widget.view.CircleImageView;
-import com.orhanobut.logger.Logger;
+import com.debughao.column.widget.view.WrapContentHeightViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +37,7 @@ import butterknife.Bind;
  * Date : 2016/6/23 13:05
  * description :专栏详情Activity
  */
-public class ColumnDetailActivity extends BaseActivity implements ColumnDetailView {
+public class ColumnDetailActivity extends BaseActivity implements ColumnDetailView,View.OnClickListener {
     private ColumnDetailPresenter mColumnDetailPresenter;
     private ColumnDetail mColumnDetail;
     private String columnName, columnUrl;
@@ -56,7 +53,7 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
     CircleImageView mCircleImageView;
     @Bind(R.id.vp_layoutColumnDetail)
     ViewPager mViewPager;
-
+    private boolean isFollow;
     @Override
     protected void getBundleExtras(Bundle extras) {
         columnName = extras.getString("columnName", "");
@@ -72,12 +69,7 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
     public void initView() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mFllow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mFllow.setBackgroundResource(R.drawable.shap_fllow_text);
-            }
-        });
+        mFllow.setOnClickListener(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,8 +81,6 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
         collapsingToolbar.setTitle(columnName);
         mColumnDetailPresenter = new ColumnDetailPresenterImpl(this, mContext);
         mColumnDetailPresenter.getColumnDetail(columnUrl);
-
-
 
     }
 
@@ -113,6 +103,7 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
     @Override
     public void onRefreshColumnDetailData(ColumnDetail columnDetail) {
         this.mColumnDetail = columnDetail;
+        mViewPager.setFocusable(false);
         setupViewPager(mViewPager);
         mTablayout.setupWithViewPager(mViewPager);
         initColumnDetail(columnDetail);
@@ -130,8 +121,27 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
     private void setupViewPager(ViewPager mViewPager) {
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(ColumnInfoFragment.newInstance(mColumnDetail), getString(R.string.columnInformation));
-        adapter.addFragment(ColumnInfoFragment.newInstance(mColumnDetail), getString(R.string.columnInformation));
+        adapter.addFragment(PostsListFragment.newInstance(columnUrl), getString(R.string.columnArticle));
         mViewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_followColumn:
+                if(isFollow){
+                    //取消关注
+                    mFllow.setBackgroundResource(R.drawable.shap_unfllow_text);
+                    mFllow.setText(R.string.followColumn);
+                    isFollow=false;
+                }else {
+                    mFllow.setBackgroundResource(R.drawable.shap_fllow_text);
+                    //添加关注
+                    isFollow=true;
+                    mFllow.setText(R.string.unFollowColumn);
+                }
+                break;
+        }
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {

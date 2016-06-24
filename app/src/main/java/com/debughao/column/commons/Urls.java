@@ -25,7 +25,7 @@ public class Urls {
      *    专栏文章列表
      *    https://zhuanlan.zhihu.com/api/columns/ChefElyn/posts?limit=10&offset=0
      */
-    public static final String COLUMNPOSTS =HOSTAPI+"/columns"+columnName+"/posts";
+    public static final String COLUMNPOSTS =HOSTAPI+"/columns";
 
 
 }
