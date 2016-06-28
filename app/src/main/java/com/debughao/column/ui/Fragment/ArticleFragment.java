@@ -2,7 +2,7 @@ package com.debughao.column.ui.Fragment;
 
 import com.debughao.column.R;
 import com.debughao.column.base.BaseFragment;
-import com.debughao.column.data.bean.Column;
+import com.debughao.column.data.bean.ColumnBean;
 import com.debughao.column.eventbus.EventCenter;
 import com.debughao.column.view.ColumnsListView;
 
@@ -67,7 +67,7 @@ public class ArticleFragment extends BaseFragment implements ColumnsListView {
 
 
     @Override
-    public void onRefreshData(List<Column> columns) {
+    public void onRefreshData(List<ColumnBean> columnBeen) {
 
     }
 

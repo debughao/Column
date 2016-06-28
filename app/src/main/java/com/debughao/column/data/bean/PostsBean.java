@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Date : 2016/6/23 11:28
  * description : 专栏文章
  */
-public class Posts implements Serializable {
+public class PostsBean implements Serializable {
 
     /**
      * isTitleImageFullScreen : false

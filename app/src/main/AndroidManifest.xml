@@ -32,9 +32,10 @@
         </activity>
         <activity
             android:name=".ui.Activity.LoginActivity"
-            android:theme="@style/LoginAppTheme"></activity>
+            android:theme="@style/LoginAppTheme" />
         <activity android:name=".ui.Activity.FlashActivity" />
-        <activity android:name=".ui.Activity.ColumnDetailActivity"></activity>
+        <activity android:name=".ui.Activity.ColumnDetailActivity" />
+        <activity android:name=".ui.Activity.PostsDetailActivity"></activity>
     </application>
 
 </manifest>

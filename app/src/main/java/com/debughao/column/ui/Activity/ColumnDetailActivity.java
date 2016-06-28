@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
 import com.debughao.column.base.BaseActivity;
 import com.debughao.column.data.bean.ColumnDetail;
-import com.debughao.column.data.bean.Posts;
+import com.debughao.column.data.bean.PostsBean;
 import com.debughao.column.presenter.ColumnDetailPresenter;
 import com.debughao.column.presenter.impl.ColumnDetailPresenterImpl;
 import com.debughao.column.ui.Fragment.ColumnInfoFragment;
@@ -24,7 +24,6 @@ import com.debughao.column.ui.Fragment.PostsListFragment;
 import com.debughao.column.utils.MyToast;
 import com.debughao.column.view.ColumnDetailView;
 import com.debughao.column.widget.view.CircleImageView;
-import com.debughao.column.widget.view.WrapContentHeightViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +102,6 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
     @Override
     public void onRefreshColumnDetailData(ColumnDetail columnDetail) {
         this.mColumnDetail = columnDetail;
-        mViewPager.setFocusable(false);
         setupViewPager(mViewPager);
         mTablayout.setupWithViewPager(mViewPager);
         initColumnDetail(columnDetail);
@@ -114,7 +112,7 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
     }
 
     @Override
-    public void onRefreshColumnPostsData(List<Posts> postsList) {
+    public void onRefreshColumnPostsData(List<PostsBean> postsBeanList) {
 
     }
 

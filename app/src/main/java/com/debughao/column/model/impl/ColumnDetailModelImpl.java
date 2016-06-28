@@ -4,11 +4,10 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.debughao.column.data.bean.ColumnDetail;
-import com.debughao.column.data.bean.Posts;
+import com.debughao.column.data.bean.PostsBean;
 import com.debughao.column.model.ColumnDetailModel;
 import com.debughao.column.nohttp.CallServer;
 import com.debughao.column.nohttp.HttpListener;
-import com.orhanobut.logger.Logger;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
@@ -58,8 +57,8 @@ public class ColumnDetailModelImpl implements ColumnDetailModel, HttpListener<St
                 mOnLoadColumnDetailListener.onSuccess(columnDetail);
                 break;
             case 1:
-                List<Posts> postsList=JSON.parseArray(result,Posts.class);
-                mOnLoadColumnPostsListListener.onSuccess(postsList);
+                List<PostsBean> postsBeanList =JSON.parseArray(result,PostsBean.class);
+                mOnLoadColumnPostsListListener.onSuccess(postsBeanList);
                 break;
             default:
                 break;
@@ -87,7 +86,7 @@ public class ColumnDetailModelImpl implements ColumnDetailModel, HttpListener<St
     }
 
     public interface OnLoadColumnPostsListListener {
-        void onSuccess(List<Posts> postses);
+        void onSuccess(List<PostsBean> postses);
 
         void onFailure(String msg, Exception e);
     }

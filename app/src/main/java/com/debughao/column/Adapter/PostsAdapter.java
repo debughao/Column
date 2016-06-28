@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
-import com.debughao.column.data.bean.Posts;
+import com.debughao.column.data.bean.PostsBean;
 
 import java.util.List;
 
@@ -27,18 +27,18 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
-    private List<Posts> mData;
+    private List<PostsBean> mData;
     private boolean mShowFooter = true;
     private Context mContext;
 
     private OnItemClickListener mOnItemClickListener;
 
-    public PostsAdapter(Context context, List<Posts> columnList) {
+    public PostsAdapter(Context context, List<PostsBean> columnList) {
         this.mContext = context;
         this.mData = columnList;
     }
 
-    public void setmDate(List<Posts> data) {
+    public void setmDate(List<PostsBean> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
@@ -76,18 +76,19 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
-            Posts posts = mData.get(position);
-            if (posts == null) {
+            PostsBean postsBean = mData.get(position);
+            if (postsBean == null) {
                 return;
             }
-            ((ItemViewHolder) holder).mTitle.setText(posts.getTitle());
-            ((ItemViewHolder) holder).mDesc.setText(Html.fromHtml(posts.getContent()).toString().trim());
-            ((ItemViewHolder) holder).mPostsCount.setText(posts.getAuthor().getName() + " · " /*+ posts.getPublishedTime()*/);
-            ((ItemViewHolder) holder).mFollowersCount.setText(posts.getLikesCount() + " 赞 ·" + posts.getCommentsCount() + " 条评论");
-            String titleImage=posts.getTitleImage();
+            ((ItemViewHolder) holder).mTitle.setText(postsBean.getTitle());
+            ((ItemViewHolder) holder).mDesc.setText(Html.fromHtml(postsBean.getContent()).toString().trim());
+            ((ItemViewHolder) holder).mPostsCount.setText(postsBean.getAuthor().getName() + " · " + postsBean.getPublishedTime());
+            ((ItemViewHolder) holder).mFollowersCount.setText(postsBean.getLikesCount() + " 赞 ·" + postsBean.getCommentsCount() + " 条评论");
+            String titleImage= postsBean.getTitleImage();
             if (TextUtils.isEmpty(titleImage)){
                 ((ItemViewHolder) holder).mNewsImg.setVisibility(View.GONE);
             }else {
+                ((ItemViewHolder) holder).mNewsImg.setVisibility(View.VISIBLE);
                 Glide.with(mContext).load(titleImage).diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(((ItemViewHolder) holder).mNewsImg);
             }
@@ -103,7 +104,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mData.size() + begin;
     }
 
-    public Posts getItem(int position) {
+    public PostsBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 

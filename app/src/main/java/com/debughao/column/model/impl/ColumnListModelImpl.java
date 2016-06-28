@@ -5,11 +5,10 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.debughao.column.commons.Urls;
-import com.debughao.column.data.bean.Column;
+import com.debughao.column.data.bean.ColumnBean;
 import com.debughao.column.model.ColumnListModel;
 import com.debughao.column.nohttp.CallServer;
 import com.debughao.column.nohttp.HttpListener;
-import com.orhanobut.logger.Logger;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
@@ -42,8 +41,8 @@ public class ColumnListModelImpl implements ColumnListModel, HttpListener<String
     public void onSucceed(int what, Response<String> response) {
         JSONArray jsonArray;
         jsonArray= JSON.parseArray(response.get());
-        List<Column>  columns= JSON.parseArray(jsonArray.toString(),Column.class);
-        mOnLoadColumnListListener.onSuccess(columns);
+        List<ColumnBean> columnBeen = JSON.parseArray(jsonArray.toString(),ColumnBean.class);
+        mOnLoadColumnListListener.onSuccess(columnBeen);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class ColumnListModelImpl implements ColumnListModel, HttpListener<String
     }
 
     public   interface  OnLoadColumnListListener{
-        void onSuccess(List<Column> columns);
+        void onSuccess(List<ColumnBean> columnBeen);
         void onFailure(String msg, Exception e);
     }
 }

@@ -14,7 +14,7 @@ import com.debughao.column.adapter.PostsAdapter;
 import com.debughao.column.base.BaseFragment;
 import com.debughao.column.commons.Urls;
 import com.debughao.column.data.bean.ColumnDetail;
-import com.debughao.column.data.bean.Posts;
+import com.debughao.column.data.bean.PostsBean;
 import com.debughao.column.eventbus.EventCenter;
 import com.debughao.column.presenter.ColumnDetailPresenter;
 import com.debughao.column.presenter.impl.ColumnDetailPresenterImpl;
@@ -45,7 +45,7 @@ public class PostsListFragment extends BaseFragment implements ColumnDetailView,
     private boolean mHasLoadedOnce;
     private PostsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<Posts> mData;
+    private ArrayList<PostsBean> mData;
     private String columnName;
 
     public static PostsListFragment newInstance(String param1) {
@@ -151,17 +151,17 @@ public class PostsListFragment extends BaseFragment implements ColumnDetailView,
     }
 
     @Override
-    public void onRefreshColumnPostsData(List<Posts> postsList) {
+    public void onRefreshColumnPostsData(List<PostsBean> postsBeanList) {
         mAdapter.isShowFooter(true);
         if (mData == null) {
             mData = new ArrayList<>();
         }
-        mData.addAll(postsList);
+        mData.addAll(postsBeanList);
         if (pageIndex == 0) {
             mAdapter.setmDate(mData);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (postsList == null || postsList.size() == 0) {
+            if (postsBeanList == null || postsBeanList.size() == 0) {
                 mAdapter.isShowFooter(false);
             }
             mAdapter.notifyDataSetChanged();

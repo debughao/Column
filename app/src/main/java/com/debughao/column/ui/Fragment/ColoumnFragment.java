@@ -12,7 +12,7 @@ import com.debughao.column.adapter.ColumnAdapter;
 import com.debughao.column.R;
 import com.debughao.column.base.BaseFragment;
 import com.debughao.column.commons.Urls;
-import com.debughao.column.data.bean.Column;
+import com.debughao.column.data.bean.ColumnBean;
 import com.debughao.column.eventbus.EventCenter;
 import com.debughao.column.presenter.ColumnPresenter;
 import com.debughao.column.presenter.impl.ColumnPresenterImpl;
@@ -43,7 +43,7 @@ public class ColoumnFragment extends BaseFragment implements ColumnsListView, Sw
     private boolean mHasLoadedOnce;
     private ColumnAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<Column> mData;
+    private ArrayList<ColumnBean> mData;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -134,17 +134,17 @@ public class ColoumnFragment extends BaseFragment implements ColumnsListView, Sw
     }
 
     @Override
-    public void onRefreshData(List<Column> columns) {
+    public void onRefreshData(List<ColumnBean> columnBeen) {
         mAdapter.isShowFooter(true);
         if (mData == null) {
-            mData = new ArrayList<Column>();
+            mData = new ArrayList<ColumnBean>();
         }
-        mData.addAll(columns);
+        mData.addAll(columnBeen);
         if (pageIndex == 0) {
             mAdapter.setmDate(mData);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (columns == null || columns.size() == 0) {
+            if (columnBeen == null || columnBeen.size() == 0) {
                 mAdapter.isShowFooter(false);
             }
             mAdapter.notifyDataSetChanged();

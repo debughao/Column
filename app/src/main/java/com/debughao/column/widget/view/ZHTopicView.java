@@ -10,7 +10,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
 import com.debughao.column.R;
-import com.debughao.column.data.bean.ColumnDetail;
 import com.debughao.column.data.bean.PostTopicsBean;
 
 import java.util.Iterator;
@@ -21,7 +20,6 @@ import java.util.List;
  * Created by zhanghao on 2015/12/30.
  */
 public class ZHTopicView extends HorizontalScrollView {
-    private String TAG = "PostTopicsBeanView";
     private List<PostTopicsBean> PostTopicsBeans;
     private boolean b;
 
@@ -39,7 +37,6 @@ public class ZHTopicView extends HorizontalScrollView {
         super(context, attrs, defStyleAttr);
         setHorizontalScrollBarEnabled(false);
     }
-
     @Override
     protected void onLayout(boolean paramBoolean, int paramInt1, int paramInt2, int paramInt3, int paramInt4) {
         super.onLayout(paramBoolean, paramInt1, paramInt2, paramInt3, paramInt4);
@@ -49,7 +46,6 @@ public class ZHTopicView extends HorizontalScrollView {
             if (localZHLinearLayout == null) {
 
             }else{
-               // LogUtil.e("localZHLinearLayout != null---------------");
                 int count = localZHLinearLayout.getChildCount();
                 TextView localTextView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.text, localZHLinearLayout, false);
                 localTextView.setText("...");

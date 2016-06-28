@@ -3,7 +3,7 @@ package com.debughao.column.presenter.impl;
 import android.content.Context;
 
 import com.debughao.column.commons.Urls;
-import com.debughao.column.data.bean.Column;
+import com.debughao.column.data.bean.ColumnBean;
 import com.debughao.column.model.ColumnListModel;
 import com.debughao.column.model.impl.ColumnListModelImpl;
 import com.debughao.column.presenter.ColumnPresenter;
@@ -38,9 +38,9 @@ public class ColumnPresenterImpl implements ColumnPresenter, ColumnListModelImpl
     }
 
     @Override
-    public void onSuccess(List<Column> columns) {
+    public void onSuccess(List<ColumnBean> columnBeen) {
         mColumnsListView.hideLoading();
-        mColumnsListView.onRefreshData(columns);
+        mColumnsListView.onRefreshData(columnBeen);
     }
 
     @Override

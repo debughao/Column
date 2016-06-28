@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.debughao.column.commons.Urls;
 import com.debughao.column.data.bean.ColumnDetail;
-import com.debughao.column.data.bean.Posts;
+import com.debughao.column.data.bean.PostsBean;
 import com.debughao.column.model.ColumnDetailModel;
 import com.debughao.column.model.impl.ColumnDetailModelImpl;
 import com.debughao.column.presenter.ColumnDetailPresenter;
@@ -48,7 +48,7 @@ public class ColumnDetailPresenterImpl implements ColumnDetailPresenter, ColumnD
     }
 
     @Override
-    public void onSuccess(List<Posts> postses) {
+    public void onSuccess(List<PostsBean> postses) {
         mColumnDetailView.onRefreshColumnPostsData(postses);
     }
 

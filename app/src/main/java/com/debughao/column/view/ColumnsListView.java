@@ -1,7 +1,7 @@
 package com.debughao.column.view;
 
 import com.debughao.column.base.BaseView;
-import com.debughao.column.data.bean.Column;
+import com.debughao.column.data.bean.ColumnBean;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  * Created by admin on 2016/6/22.
  */
 public interface ColumnsListView extends BaseView {
-    void onRefreshData(List<Column> columns);
+    void onRefreshData(List<ColumnBean> columnBeen);
 }
