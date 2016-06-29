@@ -21,12 +21,12 @@ import java.util.List;
 public class ColumnDetailPresenterImpl implements ColumnDetailPresenter, ColumnDetailModelImpl.OnLoadColumnDetailListener, ColumnDetailModelImpl.OnLoadColumnPostsListListener {
     private ColumnDetailView mColumnDetailView;
     private ColumnDetailModel mColumnDetailModel;
-    private Context mContext;
+
 
     public ColumnDetailPresenterImpl(ColumnDetailView mColumnDetailView, Context mContext) {
         this.mColumnDetailView = mColumnDetailView;
         this.mColumnDetailModel = new ColumnDetailModelImpl(mContext);
-        this.mContext = mContext;
+
     }
 
     @Override

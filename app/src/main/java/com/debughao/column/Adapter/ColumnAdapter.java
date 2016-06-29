@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
-import com.debughao.column.data.bean.ColumnBean;
+import com.debughao.column.data.bean.Column;
 
 import java.util.List;
 
@@ -22,18 +22,18 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
-    private List<ColumnBean> mData;
+    private List<Column> mData;
     private boolean mShowFooter = true;
     private Context mContext;
 
     private OnItemClickListener mOnItemClickListener;
 
-    public ColumnAdapter(Context context , List<ColumnBean> columnBeanList) {
+    public ColumnAdapter(Context context , List<Column> ColumnList) {
         this.mContext = context;
-        this.mData= columnBeanList;
+        this.mData= ColumnList;
     }
 
-    public void setmDate(List<ColumnBean> data) {
+    public void setmDate(List<Column> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
@@ -72,15 +72,15 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
 
-            ColumnBean columnBean = mData.get(position);
-            if (columnBean == null) {
+            Column Column = mData.get(position);
+            if (Column == null) {
                 return;
             }
-            ((ItemViewHolder) holder).mTitle.setText(columnBean.getName());
-            ((ItemViewHolder) holder).mDesc.setText(columnBean.getDescription());
-            ((ItemViewHolder) holder).mPostsCount.setText(columnBean.getPostsCount()+" 篇文章");
-            ((ItemViewHolder) holder).mFollowersCount.setText(""+ columnBean.getFollowersCount()+" 人关注");
-            Glide.with(mContext).load(columnBean.getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL)
+            ((ItemViewHolder) holder).mTitle.setText(Column.getName());
+            ((ItemViewHolder) holder).mDesc.setText(Column.getDescription());
+            ((ItemViewHolder) holder).mPostsCount.setText(Column.getPostsCount()+" 篇文章");
+            ((ItemViewHolder) holder).mFollowersCount.setText(""+ Column.getFollowersCount()+" 人关注");
+            Glide.with(mContext).load(Column.getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(((ItemViewHolder) holder).mNewsImg);
         }
     }
@@ -94,7 +94,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mData.size() + begin;
     }
 
-    public ColumnBean getItem(int position) {
+    public Column getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 

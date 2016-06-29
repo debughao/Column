@@ -55,12 +55,12 @@ public class AuthorBean implements Serializable {
         this.name = name;
     }
 
-    public boolean isIsOrg() {
+    public boolean isOrg() {
         return isOrg;
     }
 
-    public void setIsOrg(boolean isOrg) {
-        this.isOrg = isOrg;
+    public void setOrg(boolean org) {
+        isOrg = org;
     }
 
     public String getSlug() {
@@ -73,5 +73,17 @@ public class AuthorBean implements Serializable {
 
     public AvatarBean getAvatar() {
         return avatar;
+    }
+
+    public void setAvatar(AvatarBean avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

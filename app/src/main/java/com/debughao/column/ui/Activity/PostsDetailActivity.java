@@ -3,36 +3,94 @@ package com.debughao.column.ui.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.webkit.WebChromeClient;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
 import com.debughao.column.base.BaseActivity;
 import com.debughao.column.data.bean.PostsBean;
+import com.debughao.column.presenter.PostsDetailPresenter;
+import com.debughao.column.presenter.impl.PostsDetailPresenterImpl;
+import com.debughao.column.utils.DateHelper;
+import com.debughao.column.utils.MyToast;
 import com.debughao.column.utils.NetUtils;
 import com.debughao.column.utils.StringUtils;
 import com.debughao.column.view.PostsDetailView;
+import com.debughao.column.widget.view.CircleImageView;
+
+import butterknife.Bind;
+
 
 public class PostsDetailActivity extends BaseActivity implements PostsDetailView {
-    public WebView mWebView;
-    private String mBaseHtml;
-    private String mTitle;
-    private  PostsBean mPostsBean;
+    private PostsDetailPresenter mPostsDetailPresenter;
+
+    @Bind(R.id.tv_postsTitle)
+    TextView mPostsTitle;
+    @Bind(R.id.tv_postsAutor)
+    TextView mPostsAutor;
+    @Bind(R.id.iv_PostsAvatar)
+    CircleImageView mPostsAutorAvatar;
+    @Bind(R.id.wb_postsDetail)
+    WebView mWebView;
+    @Bind(R.id.toolbar_PostDetail)
+    Toolbar mToolbar;
+    private ImageView mImageView;
+    private CollapsingToolbarLayout collapsingToolbar;
+    private TextView mTitleTextView;
+    private String mBaseHtml, columnName, mTitle, mTitleImage;
+    private PostsBean mPostsBean;
+    private String refer;
+    private int slug;
+
+
     @Override
     public int getLayoutId() {
-       return R.layout.activity_posts_detail;
+        if (TextUtils.isEmpty(mTitleImage)) {
+            return R.layout.activity_posts_detail_untitleimage;
+        } else {
+            return R.layout.activity_posts_detail;
+        }
     }
 
     @Override
     public void initView() {
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        mPostsTitle.setText(columnName);
+        if (TextUtils.isEmpty(mTitleImage)) {
+            mTitleTextView = (TextView) findViewById(R.id.tv_tb_postsTitle);
+            mTitleTextView.setText(columnName);
+        } else {
+            mImageView = (ImageView) findViewById(R.id.iv_postsDetailImage);
+            collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_PostsDetail);
+            collapsingToolbar.setTitle(columnName);
+        }
         initWebView();
+        mPostsDetailPresenter = new PostsDetailPresenterImpl(mContext, this);
+        mPostsDetailPresenter.getPostsDetail(refer, slug);
     }
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-
+        mTitleImage = extras.getString("titleImage", "");
+        columnName = extras.getString("columnName", "");
+        refer = extras.getString("refer", "");
+        slug = extras.getInt("slug", 0);
     }
 
 
@@ -50,7 +108,7 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
 
     @Override
     public void showMsg(String msg) {
-
+        MyToast.showShort(msg);
     }
 
     @Override
@@ -63,9 +121,9 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
 
     }
 
-    public String getHtml(PostsBean postsBean ) {
+    public String getHtml(PostsBean postsBean) {
         mTitle = postsBean.getTitle();
-                StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append("<!DOCTYPE html><html lang=\"zh-CN>\n  head>\n" +
                 "<meta charset=\"utf-8\" />\n" +
                 "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,user-scalable=no\">\n" +
@@ -73,15 +131,25 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
         sb.append("<title>" + mTitle + "</title>");
         sb.append("<link rel=\"stylesheet\" href=\"file:///android_asset/style.css\">");
         sb.append("</head><body>");
+        sb.append("<section class=\"entry-content\">");
+        sb.append(postsBean.getContent());
+        sb.append("</section>");
         sb.append("</body></html>");
         return sb.toString();
     }
 
     @Override
     public void loadWebView(PostsBean postsBean) {
-      mBaseHtml=  getHtml(postsBean);
-      loadUrl(mBaseHtml);
+        String publishedTime=postsBean.getPublishedTime();
+        mPostsAutor.setText(postsBean.getAuthor().getName()+" · "+ DateHelper.getInstance().getTimeStateString(publishedTime));
+        Glide.with(mContext).load(postsBean.getAuthor().getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mPostsAutorAvatar);
+        if (!TextUtils.isEmpty(mTitleImage)) {
+            Glide.with(mContext).load(mTitleImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(mImageView);
+        }
+        mBaseHtml = getHtml(postsBean);
+        loadUrl(mBaseHtml);
     }
+
     private void initWebView() {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setDefaultTextEncodingName("utf-8");
@@ -102,7 +170,7 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                loadUrl( url);// 载入网页
+                loadUrl(url);// 载入网页
                 return true;
             }
 
@@ -128,7 +196,6 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
             }
 
         });
-
 
 
     }

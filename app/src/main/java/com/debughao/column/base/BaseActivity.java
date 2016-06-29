@@ -67,6 +67,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
             setTheme(R.style.AppThemeDay);
             super.setContentView(layoutResID);
         } else {
+            if (layoutResID == R.layout.activity_posts_detail){
+                UiUtis.setImmersionStatus(this);
+            }
             setTheme(R.style.AppThemeDay);
             super.setContentView(getContainer());
             View view = LayoutInflater.from(this).inflate(layoutResID, null);

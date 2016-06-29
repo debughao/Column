@@ -7,25 +7,25 @@ package com.debughao.column.commons;
 public class Urls {
 
 
-
     public static final int PAZE_SIZE = 10;
 
     public static final String HOST = "https://www.zhihu.com";
     public static final String HOSTAPI = "https://zhuanlan.zhihu.com/api";
-    public static final String LOGIN=HOST+"/login/phone_num";
+    public static final String LOGIN = HOST + "/login/phone_num";
     /**
-     *    专栏url 方法
-     *    https://zhuanlan.zhihu.com/api/recommendations/columns?limit=16&offset=0&seed=11
+     * 专栏url 方法
+     * https://zhuanlan.zhihu.com/api/recommendations/columns?limit=16&offset=0&seed=11
      */
 
-    public static final String RECOMMENDATIONS=HOSTAPI+"/recommendations/columns";
-    public static String columnName;
-    public static final String COLUMNDETAIL=HOSTAPI+"/columns";
+    public static final String RECOMMENDATIONS = HOSTAPI + "/recommendations/columns";
+    public static final String COLUMNDETAIL = HOSTAPI + "/columns";
     /**
-     *    专栏文章列表
-     *    https://zhuanlan.zhihu.com/api/columns/ChefElyn/posts?limit=10&offset=0
+     * 专栏文章列表
+     * https://zhuanlan.zhihu.com/api/columns/ChefElyn/posts?limit=10&offset=0
      */
-    public static final String COLUMNPOSTS =HOSTAPI+"/columns";
-
-
+    public static final String COLUMNPOSTS = HOSTAPI + "/columns";
+    /***
+     * https://zhuanlan.zhihu.com/api/posts/19868470?refer=jinrongcainiaoziqiangji
+     */
+    public static final String POSTEDETAIl = HOSTAPI + "/posts";
 }

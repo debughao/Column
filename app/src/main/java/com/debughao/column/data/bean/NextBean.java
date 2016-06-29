@@ -74,7 +74,7 @@ public class NextBean implements Serializable {
      * name : 【辞客堂】曲创杂谈版
      */
 
-    private ColumnBean columnBean;
+    private Column column;
     /**
      * previous : null
      * next : null
@@ -228,12 +228,12 @@ public class NextBean implements Serializable {
         this.summary = summary;
     }
 
-    public ColumnBean getColumnBean() {
-        return columnBean;
+    public Column getColumn() {
+        return column;
     }
 
-    public void setColumnBean(ColumnBean columnBean) {
-        this.columnBean = columnBean;
+    public void setColumn(Column column) {
+        this.column = column;
     }
 
     public MetaBean getMeta() {
