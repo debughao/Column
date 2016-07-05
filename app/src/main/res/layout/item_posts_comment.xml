@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.debughao.column.widget.view.CircleImageView
+        android:id="@+id/iv_postsCommentAvatars"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_default"
+        app:civ_border_color="@color/twenty_write"
+        app:civ_border_width="2dp" />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_checkComment"
+        style="@style/DoubleWrapContent"
+        android:layout_alignParentRight="true"
+        android:text="查看对话"
+        android:textColor="@color/black_text"
+        android:textSize="@dimen/c_text_size" />
+
+    <LinearLayout
+        android:id="@+id/ll_postsCommentContent"
+        android:layout_toLeftOf="@id/tv_checkComment"
+        android:layout_toRightOf="@id/iv_postsCommentAvatars"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+       style="@style/HeightWrapContent">
+        <TextView
+            android:id="@+id/tv_PostsCommentName"
+            style="@style/DoubleWrapContent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:text="廖指导"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/c_text_size" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_PostsCommentContent"
+            style="@style/DoubleWrapContent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="21 条评论"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/c_text_size" />
+        <LinearLayout
+            android:layout_marginTop="5dp"
+           style="@style/DoubleWrapContent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_commentDate"
+                style="@style/commentFooterText"
+                android:text="9 个月前"
+                />
+            <TextView
+                android:id="@+id/tv_commentReply"
+                style="@style/commentFooterText"
+                android:drawableLeft="@drawable/ic_grey_repy"
+                android:drawablePadding="5dp"
+                android:text="回复"
+                />
+            <TextView
+                android:id="@+id/tv_commentReport"
+                style="@style/commentFooterText"
+                android:drawableLeft="@drawable/ic_vote_thumb_grey"
+                android:drawablePadding="5dp"
+                android:text="赞"
+                />
+            <TextView
+                style="@style/commentFooterText"
+                android:drawableLeft="@drawable/ic_grey_report"
+                android:drawablePadding="5dp"
+                android:text="举报"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_commentLikeNum"
+        style="@style/commentFooterText"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/ll_postsCommentContent"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        />
+</RelativeLayout>

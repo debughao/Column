@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
 import com.debughao.column.data.bean.PostsBean;
+import com.debughao.column.utils.DateHelper;
 
 import java.util.List;
 
@@ -82,7 +83,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             ((ItemViewHolder) holder).mTitle.setText(postsBean.getTitle());
             ((ItemViewHolder) holder).mDesc.setText(Html.fromHtml(postsBean.getContent()).toString().trim());
-            ((ItemViewHolder) holder).mPostsCount.setText(postsBean.getAuthor().getName() + " · " + postsBean.getPublishedTime());
+            ((ItemViewHolder) holder).mPostsCount.setText(postsBean.getAuthor().getName() + " · " + DateHelper.getInstance().getTimeStateString(postsBean.getPublishedTime()));
             ((ItemViewHolder) holder).mFollowersCount.setText(postsBean.getLikesCount() + " 赞 ·" + postsBean.getCommentsCount() + " 条评论");
             String titleImage= postsBean.getTitleImage();
             if (TextUtils.isEmpty(titleImage)){

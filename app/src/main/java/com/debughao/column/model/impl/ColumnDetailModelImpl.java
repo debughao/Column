@@ -51,17 +51,29 @@ public class ColumnDetailModelImpl implements ColumnDetailModel, HttpListener<St
     public void onSucceed(int what, Response<String> response) {
 
         String result = response.get();
-        switch (what) {
-            case 0:
-                ColumnDetail columnDetail = JSON.parseObject(result, ColumnDetail.class);
-                mOnLoadColumnDetailListener.onSuccess(columnDetail);
-                break;
-            case 1:
-                List<PostsBean> postsBeanList =JSON.parseArray(result,PostsBean.class);
-                mOnLoadColumnPostsListListener.onSuccess(postsBeanList);
-                break;
-            default:
-                break;
+        if (response.getHeaders().getResponseCode()==200) {
+            switch (what) {
+                case 0:
+                    ColumnDetail columnDetail = JSON.parseObject(result, ColumnDetail.class);
+                    mOnLoadColumnDetailListener.onSuccess(columnDetail);
+                    break;
+                case 1:
+                    List<PostsBean> postsBeanList = JSON.parseArray(result, PostsBean.class);
+                    mOnLoadColumnPostsListListener.onSuccess(postsBeanList);
+                    break;
+                default:
+                    break;
+            }
+        }else {
+            switch (what) {
+                case 0:
+                    mOnLoadColumnDetailListener.onFailure("获取数据失败!",null);
+                    break;
+                case 1:
+                    mOnLoadColumnPostsListListener.onFailure("获取数据失败!",null);
+                    break;
+
+            }
         }
     }
 

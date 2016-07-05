@@ -16,4 +16,13 @@
         <attr name="riv_hoverColor" format="reference|color">
         </attr>
     </declare-styleable>
+    <declare-styleable name="LikeButton">
+        <attr name="IsLike" format="boolean" />
+        <attr name="LikeTextColor" format="color" />
+        <attr name="UnLikeTextColor" format="color" />
+        <attr name="LikeBackground" format="integer" />
+        <attr name="UnLikeBackground" format="integer" />
+        <attr name="UnLikeImage" format="integer" />
+        <attr name="LikeImage" format="integer" />
+    </declare-styleable>
 </resources>

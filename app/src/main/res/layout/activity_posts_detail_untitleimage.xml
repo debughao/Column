@@ -39,12 +39,13 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/ns_postsDetail"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             style="@style/DoubleMatchParent"
-            android:background="@color/white"
+
             android:orientation="vertical">
 
             <TextView
@@ -74,6 +75,8 @@
                 android:id="@+id/wb_postsDetail"
                 android:background="@color/white"
                 style="@style/DoubleMatchParent" />
+            <include layout="@layout/include_posts_footer"/>
+            <include layout="@layout/include_posts_comment" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

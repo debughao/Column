@@ -1,25 +1,26 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+
     tools:context="com.debughao.column.ui.Fragment.MyFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh_My"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
 
-            android:layout_width="match_parent"
+
+        <com.debughao.column.widget.view.LikeButton
+            android:id="@+id/my"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="侧是是是"/>
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/recycle_viewColumn"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:scrollbars="vertical"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-        <!--android:paddingTop="@dimen/card_margin"/>-->
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-</FrameLayout>
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            app:IsLike="false"
+            app:LikeImage="@drawable/ic_vote_thumb_white"
+            app:UnLikeImage="@drawable/ic_vote_thumb_grey"
+            app:LikeTextColor="@android:color/white"
+            app:UnLikeTextColor="@android:color/darker_gray"
+            app:LikeBackground="@drawable/shap_fllow_text"
+            app:UnLikeBackground="@drawable/shap_unfllow_text"
+            />
+</LinearLayout>

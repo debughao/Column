@@ -8,7 +8,7 @@ public class Urls {
 
 
     public static final int PAZE_SIZE = 10;
-
+    public static final  String fields= "name,url,href,following,avatar,canManage,slug,creator(slug)";
     public static final String HOST = "https://www.zhihu.com";
     public static final String HOSTAPI = "https://zhuanlan.zhihu.com/api";
     public static final String LOGIN = HOST + "/login/phone_num";
@@ -28,4 +28,7 @@ public class Urls {
      * https://zhuanlan.zhihu.com/api/posts/19868470?refer=jinrongcainiaoziqiangji
      */
     public static final String POSTEDETAIl = HOSTAPI + "/posts";
+    /**
+     * https://zhuanlan.zhihu.com/api/posts/20234763/comments?limit=10&offset=10
+     */
 }

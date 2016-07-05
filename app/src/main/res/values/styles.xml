@@ -79,6 +79,11 @@
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
     </style>
+    <style name="commentFooterText" parent="DoubleWrapContent">
+        <item name="android:textColor">@color/tab_title_normal_color</item>
+        <item name="android:textSize">@dimen/b_text_size</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>

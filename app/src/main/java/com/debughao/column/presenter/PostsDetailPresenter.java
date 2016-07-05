@@ -8,4 +8,6 @@ package com.debughao.column.presenter;
  */
 public interface PostsDetailPresenter {
     void getPostsDetail(String columnName, int slug);
+    void getSubColumn(int slug);
+    void getSubComment(int slug, int offset);
 }

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_postsFooter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:visibility="gone">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.debughao.column.widget.view.LikeButton
+            android:id="@+id/tv_postsLike"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            app:IsLike="false"
+            app:LikeBackground="@drawable/shap_fllow_text"
+            app:LikeImage="@drawable/ic_vote_thumb_white"
+            app:LikeTextColor="@android:color/white"
+            app:UnLikeBackground="@drawable/shap_unfllow_text"
+            app:UnLikeImage="@drawable/ic_vote_thumb_grey"
+            app:UnLikeTextColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_postsTip"
+            style="@style/DoubleWrapContent"
+            android:layout_alignParentRight="true"
+            android:text="举报"
+            android:textColor="@color/tab_title_normal_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:id="@+id/tv_collection"
+            style="@style/DoubleWrapContent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="文章被以下专栏收录"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/c_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_collection"
+            android:background="@color/fafafa" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.debughao.column.widget.view.CircleImageView
+            android:id="@+id/iv_PostsAvatars"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_default"
+            app:civ_border_color="@color/twenty_write"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/tv_enterColumn"
+            style="@style/DoubleWrapContent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:text="进入该栏"
+            android:textColor="@color/z_green"
+            android:textSize="@dimen/c_text_size" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/tv_enterColumn"
+            android:layout_toRightOf="@id/iv_PostsAvatars"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_postsTitles"
+                style="@style/DoubleWrapContent"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/a_text_size" />
+
+            <TextView
+                android:id="@+id/tv_postsDescriptions"
+                style="@style/DoubleWrapContent"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/tab_title_normal_color"
+                android:textSize="@dimen/a_text_size" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 
 
 import com.debughao.column.R;
+import com.debughao.column.widget.view.LikeButton;
 
 
 public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+ private  LikeButton mlib;
 
     private String mParam1;
     private String mParam2;
@@ -43,10 +44,8 @@ public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefresh
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh_My);
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
-                android.R.color.holo_blue_bright, android.R.color.holo_orange_light);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        mlib= (LikeButton) view.findViewById(R.id.my);
+        mlib.setTextStyle(true);
         return view;
     }
 

@@ -67,6 +67,7 @@
 
     <TextView
         style="@style/ColumnInfofragmentTitle"
+
         android:text="专栏介绍" />
 
     <TextView

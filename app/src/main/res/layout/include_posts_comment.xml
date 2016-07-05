@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_postsComment"
+    android:visibility="gone"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="15dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:id="@+id/tv_commentNum"
+            style="@style/DoubleWrapContent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="还没有评论"
+            android:textColor="@color/black_text"
+            android:textSize="@dimen/c_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_commentNum"
+            android:background="@color/fafafa" />
+    </RelativeLayout>
+    <com.debughao.column.widget.view.ZhFullyListView
+        android:id="@+id/lv_postsComment"
+        android:divider="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -1,7 +1,5 @@
 package com.debughao.column.model;
 
-import android.content.Context;
-
 import com.debughao.column.model.impl.PostsDetailModelImpl;
 
 /**
@@ -12,4 +10,6 @@ import com.debughao.column.model.impl.PostsDetailModelImpl;
  */
 public interface PostsDetailModel {
  void getPostDetail( String url, PostsDetailModelImpl.OnPostsDetailListener onPostsDetailListener, String refer);
+ void getSubColumn(String url, PostsDetailModelImpl.OnSubColumnListener onSubColumnListener);
+ void getComment(String url,int limit, int offset, PostsDetailModelImpl.OnCommentListener onCommentListener);
 }

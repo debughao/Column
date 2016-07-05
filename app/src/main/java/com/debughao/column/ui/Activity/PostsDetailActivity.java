@@ -11,13 +11,17 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
+import com.debughao.column.adapter.CommentAdapter;
 import com.debughao.column.base.BaseActivity;
+import com.debughao.column.data.bean.CommentBean;
 import com.debughao.column.data.bean.PostsBean;
+import com.debughao.column.data.bean.SubColumn;
 import com.debughao.column.presenter.PostsDetailPresenter;
 import com.debughao.column.presenter.impl.PostsDetailPresenterImpl;
 import com.debughao.column.utils.DateHelper;
@@ -26,6 +30,12 @@ import com.debughao.column.utils.NetUtils;
 import com.debughao.column.utils.StringUtils;
 import com.debughao.column.view.PostsDetailView;
 import com.debughao.column.widget.view.CircleImageView;
+import com.debughao.column.widget.view.LikeButton;
+import com.debughao.column.widget.view.ZhFullyListView;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -39,10 +49,32 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
     TextView mPostsAutor;
     @Bind(R.id.iv_PostsAvatar)
     CircleImageView mPostsAutorAvatar;
+    @Bind(R.id.iv_PostsAvatars)
+    CircleImageView mPostsAutorAvatars;
     @Bind(R.id.wb_postsDetail)
     WebView mWebView;
     @Bind(R.id.toolbar_PostDetail)
     Toolbar mToolbar;
+    @Bind(R.id.tv_postsLike)
+    LikeButton mPostsLike;
+    @Bind(R.id.tv_postsTip)
+    TextView mPostsTip;
+    @Bind(R.id.tv_postsTitles)
+    TextView mPostsTitles;
+    @Bind(R.id.tv_postsDescriptions)
+    TextView mPostsDescription;
+    @Bind(R.id.tv_enterColumn)
+    TextView mEnterColumn;
+    @Bind(R.id.tv_commentNum)
+    TextView mCommentNum;
+
+    @Bind(R.id.ll_postsFooter)
+    LinearLayout mPostsFooter;
+
+    @Bind(R.id.ll_postsComment)
+    LinearLayout mPostsComment;
+    @Bind(R.id.lv_postsComment)
+    ZhFullyListView mListCommentView;
     private ImageView mImageView;
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView mTitleTextView;
@@ -50,7 +82,13 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
     private PostsBean mPostsBean;
     private String refer;
     private int slug;
-
+    private CommentAdapter mCommentAdapter;
+    private List<CommentBean> mCommentList = new ArrayList<>();
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     public int getLayoutId() {
@@ -83,6 +121,7 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
         initWebView();
         mPostsDetailPresenter = new PostsDetailPresenterImpl(mContext, this);
         mPostsDetailPresenter.getPostsDetail(refer, slug);
+
     }
 
     @Override
@@ -140,14 +179,43 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
 
     @Override
     public void loadWebView(PostsBean postsBean) {
-        String publishedTime=postsBean.getPublishedTime();
-        mPostsAutor.setText(postsBean.getAuthor().getName()+" · "+ DateHelper.getInstance().getTimeStateString(publishedTime));
+        this.mPostsBean = postsBean;
+        String publishedTime = postsBean.getPublishedTime();
+        mPostsAutor.setText(postsBean.getAuthor().getName() + " · " + DateHelper.getInstance().getTimeStateString(publishedTime));
         Glide.with(mContext).load(postsBean.getAuthor().getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mPostsAutorAvatar);
         if (!TextUtils.isEmpty(mTitleImage)) {
             Glide.with(mContext).load(mTitleImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(mImageView);
         }
         mBaseHtml = getHtml(postsBean);
         loadUrl(mBaseHtml);
+    }
+
+    @Override
+    public void loadCommentView(List<CommentBean> commentBean) {
+        if (mPostsBean.isCanComment()) {//允许评论
+
+        }else {//不允许许评论
+
+        }
+        int commentNum = mPostsBean.getCommentsCount();
+        if (commentNum != 0) {
+            mCommentNum.setText(commentNum + "条评论");
+        }else {
+            mCommentNum.setText( "还没有评论");
+        }
+        mCommentAdapter = new CommentAdapter(commentBean, mContext);
+        mListCommentView.setAdapter(mCommentAdapter);
+        mCommentAdapter.notifyDataSetChanged();
+        mPostsComment.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void loadSubColumnView(List<SubColumn> subColumn) {
+        Glide.with(mContext).load(subColumn.get(0).getSourceColumn().getImage_url()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mPostsAutorAvatars);
+        mPostsLike.setTextStyle(false);
+        mPostsTitles.setText(subColumn.get(0).getSourceColumn().getName());
+        mPostsDescription.setText(subColumn.get(0).getSourceColumn().getIntro());
+        mPostsFooter.setVisibility(View.VISIBLE);
     }
 
     private void initWebView() {
@@ -185,6 +253,8 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
                 // TODO Auto-generated method stub
                 // mProgressBar.setVisibility(View.GONE);
                 super.onPageFinished(view, url);
+                mPostsDetailPresenter.getSubColumn(slug);
+                mPostsDetailPresenter.getSubComment(slug, 0);
             }
 
             @SuppressWarnings("deprecation")
@@ -199,4 +269,6 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
 
 
     }
+
+
 }

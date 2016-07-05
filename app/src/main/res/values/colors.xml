@@ -8,6 +8,8 @@
     <color name="colorAccent">#E91E63</color>
     <color name="bg">#f2f2f2</color>
     <color name="tab_title_normal_color">#999999</color>
+    <color name="z_green">#50C87E</color>
+
     <color name="transparent">#00000000</color>
     <color name="transparent_half">#A0000000</color>
     <color name="divider">#cccccc</color>

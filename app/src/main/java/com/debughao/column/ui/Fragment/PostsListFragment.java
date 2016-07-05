@@ -18,7 +18,6 @@ import com.debughao.column.data.bean.PostsBean;
 import com.debughao.column.eventbus.EventCenter;
 import com.debughao.column.presenter.ColumnDetailPresenter;
 import com.debughao.column.presenter.impl.ColumnDetailPresenterImpl;
-import com.debughao.column.ui.Activity.ColumnDetailActivity;
 import com.debughao.column.ui.Activity.PostsDetailActivity;
 import com.debughao.column.utils.MyToast;
 import com.debughao.column.view.ColumnDetailView;
@@ -176,7 +175,6 @@ public class PostsListFragment extends BaseFragment implements ColumnDetailView,
         public void onItemClick(View view, int onItemClick) {
              Bundle bundle=new Bundle();
             bundle.putString("refer",columnName);
-            bundle.putString("columnName",mData.get(onItemClick).getTitle());
             bundle.putString("columnName",mData.get(onItemClick).getTitle());
             bundle.putString("titleImage",mData.get(onItemClick).getTitleImage());
             bundle.putInt("slug",mData.get(onItemClick).getSlug());

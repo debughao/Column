@@ -44,7 +44,7 @@ public class ZHTopicView extends HorizontalScrollView {
         if (b) {
             final LinearLayoutCompat localZHLinearLayout = (LinearLayoutCompat) getChildAt(0);
             if (localZHLinearLayout == null) {
-
+             return;
             }else{
                 int count = localZHLinearLayout.getChildCount();
                 TextView localTextView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.text, localZHLinearLayout, false);

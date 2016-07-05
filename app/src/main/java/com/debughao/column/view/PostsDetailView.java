@@ -1,9 +1,11 @@
 package com.debughao.column.view;
 
-import android.webkit.WebView;
-
 import com.debughao.column.base.BaseView;
+import com.debughao.column.data.bean.CommentBean;
 import com.debughao.column.data.bean.PostsBean;
+import com.debughao.column.data.bean.SubColumn;
+
+import java.util.List;
 
 /**
  * Author : debughao
@@ -13,4 +15,6 @@ import com.debughao.column.data.bean.PostsBean;
  */
 public interface PostsDetailView extends BaseView {
     void  loadWebView(PostsBean postsBean);
+    void  loadCommentView(List<CommentBean> commentBean);
+    void  loadSubColumnView(List<SubColumn> subColumn);
 }
