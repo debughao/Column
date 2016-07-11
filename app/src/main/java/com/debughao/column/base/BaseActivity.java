@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.debughao.column.App;
 import com.debughao.column.R;
 import com.debughao.column.utils.UiUtis;
 import com.debughao.column.widget.layout.SwipeBackLayout;
@@ -42,11 +41,13 @@ public abstract class BaseActivity extends AppCompatActivity  {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
 //    public void reload() {

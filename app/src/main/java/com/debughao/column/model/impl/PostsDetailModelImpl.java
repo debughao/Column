@@ -1,6 +1,7 @@
 package com.debughao.column.model.impl;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.debughao.column.data.bean.CommentBean;
@@ -9,6 +10,7 @@ import com.debughao.column.data.bean.SubColumn;
 import com.debughao.column.model.PostsDetailModel;
 import com.debughao.column.nohttp.CallServer;
 import com.debughao.column.nohttp.HttpListener;
+import com.orhanobut.logger.Logger;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
@@ -36,7 +38,9 @@ public class PostsDetailModelImpl implements PostsDetailModel, HttpListener<Stri
     public void getPostDetail(String url, OnPostsDetailListener onPostsDetailListener, String refer) {
         this.mOnPostsDetailListener = onPostsDetailListener;
         Request<String> request = NoHttp.createStringRequest(url, RequestMethod.GET);
-        request.add("refer", refer);
+        if (!TextUtils.isEmpty(refer)){
+            request.add("refer", refer);
+        }
         CallServer.getRequestInstance().add(mContext, 0, request, this, false, false);
     }
 
@@ -60,7 +64,7 @@ public class PostsDetailModelImpl implements PostsDetailModel, HttpListener<Stri
     @Override
     public void onSucceed(int what, Response<String> response) {
         String result = response.get();
-        if (response.getHeaders().getResponseCode() == 200) {
+        if (response.getHeaders().getResponseCode() == 200||response.getHeaders().getResponseCode() == 304) {
             switch (what) {
                 case 0:
                     PostsBean postsBean = JSON.parseObject(result, PostsBean.class);
@@ -68,6 +72,7 @@ public class PostsDetailModelImpl implements PostsDetailModel, HttpListener<Stri
                     break;
                 case 1:
                     List<SubColumn> subColumn = JSON.parseArray(result, SubColumn.class);
+                    Logger.json(result);
                     mOnSubColumnListener.onSuccess(subColumn);
                     break;
                 case 2:

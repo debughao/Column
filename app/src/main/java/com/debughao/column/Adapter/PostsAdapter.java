@@ -90,7 +90,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((ItemViewHolder) holder).mNewsImg.setVisibility(View.GONE);
             }else {
                 ((ItemViewHolder) holder).mNewsImg.setVisibility(View.VISIBLE);
-                Glide.with(mContext).load(titleImage).diskCacheStrategy(DiskCacheStrategy.ALL)
+                Glide.with(mContext).load(titleImage).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
                         .into(((ItemViewHolder) holder).mNewsImg);
             }
         }

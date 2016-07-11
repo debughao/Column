@@ -49,31 +49,29 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
     TextView mPostsAutor;
     @Bind(R.id.iv_PostsAvatar)
     CircleImageView mPostsAutorAvatar;
-    @Bind(R.id.iv_PostsAvatars)
+//    @Bind(R.id.iv_PostsAvatars)
     CircleImageView mPostsAutorAvatars;
     @Bind(R.id.wb_postsDetail)
     WebView mWebView;
     @Bind(R.id.toolbar_PostDetail)
     Toolbar mToolbar;
-    @Bind(R.id.tv_postsLike)
+//    @Bind(R.id.tv_postsLike)
     LikeButton mPostsLike;
     @Bind(R.id.tv_postsTip)
     TextView mPostsTip;
-    @Bind(R.id.tv_postsTitles)
+//    @Bind(R.id.tv_postsTitles)
     TextView mPostsTitles;
-    @Bind(R.id.tv_postsDescriptions)
+//    @Bind(R.id.tv_postsDescriptions)
     TextView mPostsDescription;
     @Bind(R.id.tv_enterColumn)
     TextView mEnterColumn;
-    @Bind(R.id.tv_commentNum)
+//    @Bind(R.id.tv_commentNum)
     TextView mCommentNum;
-
-    @Bind(R.id.ll_postsFooter)
+//    @Bind(R.id.ll_postsFooter)
     LinearLayout mPostsFooter;
-
-    @Bind(R.id.ll_postsComment)
+//    @Bind(R.id.ll_postsComment)
     LinearLayout mPostsComment;
-    @Bind(R.id.lv_postsComment)
+//    @Bind(R.id.lv_postsComment)
     ZhFullyListView mListCommentView;
     private ImageView mImageView;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -110,6 +108,10 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
             }
         });
         mPostsTitle.setText(columnName);
+        mCommentNum= (TextView) findViewById(R.id.tv_commentNum);
+        mPostsFooter= (LinearLayout) findViewById(R.id.ll_postsFooter);
+        mListCommentView= (ZhFullyListView) findViewById(R.id.lv_postsComment);
+        mPostsComment= (LinearLayout) findViewById(R.id.ll_postsComment);
         if (TextUtils.isEmpty(mTitleImage)) {
             mTitleTextView = (TextView) findViewById(R.id.tv_tb_postsTitle);
             mTitleTextView.setText(columnName);
@@ -147,7 +149,9 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
 
     @Override
     public void showMsg(String msg) {
-        MyToast.showShort(msg);
+        if (!TextUtils.isEmpty(msg)) {
+            MyToast.showShort(msg);
+        }
     }
 
     @Override
@@ -184,7 +188,7 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
         mPostsAutor.setText(postsBean.getAuthor().getName() + " · " + DateHelper.getInstance().getTimeStateString(publishedTime));
         Glide.with(mContext).load(postsBean.getAuthor().getAvatar().getTemplate("b")).diskCacheStrategy(DiskCacheStrategy.ALL).into(mPostsAutorAvatar);
         if (!TextUtils.isEmpty(mTitleImage)) {
-            Glide.with(mContext).load(mTitleImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(mImageView);
+            Glide.with(getApplicationContext()).load(mTitleImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(mImageView);
         }
         mBaseHtml = getHtml(postsBean);
         loadUrl(mBaseHtml);
@@ -198,6 +202,7 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
 
         }
         int commentNum = mPostsBean.getCommentsCount();
+
         if (commentNum != 0) {
             mCommentNum.setText(commentNum + "条评论");
         }else {
@@ -210,8 +215,12 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
     }
 
     @Override
-    public void loadSubColumnView(List<SubColumn> subColumn) {
-        Glide.with(mContext).load(subColumn.get(0).getSourceColumn().getImage_url()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mPostsAutorAvatars);
+    public void loadSubColumnView(final List<SubColumn> subColumn) {
+        mPostsAutorAvatars= (CircleImageView) findViewById(R.id.iv_PostsAvatars);
+        mPostsLike= (LikeButton) findViewById(R.id.tv_postsLike);
+        mPostsTitles= (TextView) findViewById(R.id.tv_postsTitles);
+        mPostsDescription= (TextView) findViewById(R.id.tv_postsDescriptions);
+        Glide.with(getApplicationContext()).load(subColumn.get(0).getSourceColumn().getImage_url()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mPostsAutorAvatars);
         mPostsLike.setTextStyle(false);
         mPostsTitles.setText(subColumn.get(0).getSourceColumn().getName());
         mPostsDescription.setText(subColumn.get(0).getSourceColumn().getIntro());

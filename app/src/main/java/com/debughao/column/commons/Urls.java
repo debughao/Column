@@ -18,6 +18,7 @@ public class Urls {
      */
 
     public static final String RECOMMENDATIONS = HOSTAPI + "/recommendations/columns";
+    public static final String RECOMMENDARTICLE = HOSTAPI + "/recommendations/posts";
     public static final String COLUMNDETAIL = HOSTAPI + "/columns";
     /**
      * 专栏文章列表

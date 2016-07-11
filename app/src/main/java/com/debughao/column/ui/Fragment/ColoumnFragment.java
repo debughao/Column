@@ -115,13 +115,17 @@ public class ColoumnFragment extends BaseFragment implements ColumnsListView, Sw
 
     @Override
     public void showLoading() {
-        mSwipeRefreshWidget.setRefreshing(true);
+        if (mSwipeRefreshWidget!=null) {
+            mSwipeRefreshWidget.setRefreshing(true);
+        }
     }
 
     @Override
     public void hideLoading() {
         mHasLoadedOnce = true;
-        mSwipeRefreshWidget.setRefreshing(false);
+        if (mSwipeRefreshWidget!=null) {
+            mSwipeRefreshWidget.setRefreshing(false);
+        }
     }
 
     @Override

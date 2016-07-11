@@ -37,6 +37,7 @@ public class PostsDetailPresenterImpl implements PostsDetailPresenter, PostsDeta
 
     @Override
     public void getSubColumn(int slug) {
+
 //        https://zhuanlan.zhihu.com/api/posts/20874580/contributed
         String url = Urls.POSTEDETAIl +"/" + slug+ "/contributed";
         mPostsDetailModel.getSubColumn(url,  this);

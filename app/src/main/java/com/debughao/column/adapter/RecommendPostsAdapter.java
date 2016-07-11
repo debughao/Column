@@ -2,6 +2,8 @@ package com.debughao.column.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,29 +13,33 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.debughao.column.R;
-import com.debughao.column.data.bean.Column;
+import com.debughao.column.data.bean.RecommendPostsBean;
+import com.debughao.column.utils.DateHelper;
 
 import java.util.List;
 
 /**
- *
+ * Author : debughao
+ * Email : 863260364@qq.com
+ * Date : 2016-7-11 21:54:22
+ * description :
  */
-public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecommendPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
-    private List<Column> mData;
+    private List<RecommendPostsBean> mData;
     private boolean mShowFooter = true;
     private Context mContext;
 
     private OnItemClickListener mOnItemClickListener;
 
-    public ColumnAdapter(Context context , List<Column> ColumnList) {
+    public RecommendPostsAdapter(Context context, List<RecommendPostsBean> columnList) {
         this.mContext = context;
-        this.mData= ColumnList;
+        this.mData = columnList;
     }
 
-    public void setmDate(List<Column> data) {
+    public void setmDate(List<RecommendPostsBean> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
@@ -56,7 +62,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                                       int viewType) {
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_column, parent, false);
+                    .inflate(R.layout.item_posts, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {
@@ -71,16 +77,27 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
-            Column Column = mData.get(position);
-            if (Column == null) {
+            RecommendPostsBean postsBean = mData.get(position);
+
+            if (postsBean == null) {
                 return;
             }
-            ((ItemViewHolder) holder).mTitle.setText(Column.getName());
-            ((ItemViewHolder) holder).mDesc.setText(Column.getDescription());
-            ((ItemViewHolder) holder).mPostsCount.setText(Column.getPostsCount()+" 篇文章");
-            ((ItemViewHolder) holder).mFollowersCount.setText(""+ Column.getFollowersCount()+" 人关注");
-            Glide.with(mContext).load(Column.getAvatar().getTemplate("m")).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(((ItemViewHolder) holder).mNewsImg);
+
+            RecommendPostsBean.ColumnBean columnBean = postsBean.getColumn();
+            ((ItemViewHolder) holder).mTitle.setText(postsBean.getTitle());
+            ((ItemViewHolder) holder).mDesc.setText(Html.fromHtml(postsBean.getContent()).toString().trim());
+            ((ItemViewHolder) holder).mPostsCount.setText(postsBean.getAuthor().getName() + " · " + DateHelper.getInstance().getTimeStateString(postsBean.getPublishedTime()));
+            if (columnBean != null) {
+                ((ItemViewHolder) holder).mFollowersCount.setText(" 发表于 " + columnBean.getName());
+            }
+            String titleImage = postsBean.getTitleImage();
+            if (TextUtils.isEmpty(titleImage)) {
+                ((ItemViewHolder) holder).mNewsImg.setVisibility(View.GONE);
+            } else {
+                ((ItemViewHolder) holder).mNewsImg.setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(titleImage).diskCacheStrategy(DiskCacheStrategy.ALL).crossFade()
+                        .into(((ItemViewHolder) holder).mNewsImg);
+            }
         }
     }
 
@@ -93,7 +110,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mData.size() + begin;
     }
 
-    public Column getItem(int position) {
+    public RecommendPostsBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 
@@ -131,11 +148,11 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public ItemViewHolder(View v) {
             super(v);
-            mTitle = (TextView) v.findViewById(R.id.tv_item_columnTitle);
-            mDesc = (TextView) v.findViewById(R.id.tv_item_columneDscription);
-            mNewsImg = (ImageView) v.findViewById(R.id.iv_item_columnAvatar);
-            mFollowersCount = (TextView) v.findViewById(R.id.tv_item_columnFollowersCount);
-            mPostsCount = (TextView) v.findViewById(R.id.tv_item_columnPostsCount);
+            mTitle = (TextView) v.findViewById(R.id.tv_item_postsTitle);
+            mDesc = (TextView) v.findViewById(R.id.tv_item_postsDscription);
+            mNewsImg = (ImageView) v.findViewById(R.id.iv_item_postsAvatar);
+            mFollowersCount = (TextView) v.findViewById(R.id.tv_item_postsFollowersCount);
+            mPostsCount = (TextView) v.findViewById(R.id.tv_item_postsCount);
             v.setOnClickListener(this);
         }
 
@@ -146,5 +163,4 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
     }
-
 }

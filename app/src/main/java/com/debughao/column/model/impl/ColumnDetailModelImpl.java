@@ -51,7 +51,7 @@ public class ColumnDetailModelImpl implements ColumnDetailModel, HttpListener<St
     public void onSucceed(int what, Response<String> response) {
 
         String result = response.get();
-        if (response.getHeaders().getResponseCode()==200) {
+        if (response.getHeaders().getResponseCode()==200||response.getHeaders().getResponseCode()==304) {
             switch (what) {
                 case 0:
                     ColumnDetail columnDetail = JSON.parseObject(result, ColumnDetail.class);

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -86,7 +87,9 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
 
     @Override
     public void showMsg(String msg) {
-        MyToast.showShort(msg);
+        if (!TextUtils.isEmpty(msg)) {
+            MyToast.showShort(msg);
+        }
     }
 
     @Override
