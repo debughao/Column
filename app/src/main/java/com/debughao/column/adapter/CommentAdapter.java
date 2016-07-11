@@ -72,7 +72,7 @@ public class CommentAdapter extends BaseAdapter {
         mHolder.mCommentContent.setText( mCommentList.get(i).getContent());
         String commentTime=mCommentList.get(i).getCreatedTime();
         mHolder.mCommentDate.setText(DateHelper.getInstance().getTimeStateString(commentTime));
-        Glide.with(mContext).load(mCommentList.get(i).getAuthor().getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mHolder.mCommenterAvatar);
+        Glide.with(mContext).load(mCommentList.get(i).getAuthor().getAvatar().getTemplate("m")).diskCacheStrategy(DiskCacheStrategy.ALL).into(mHolder.mCommenterAvatar);
         if (likesCount!=0){
             mHolder.mCommentLikeNum.setText(likesCount+" 赞");
             mHolder.mCommentLikeNum.setVisibility(View.VISIBLE);

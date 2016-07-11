@@ -108,7 +108,7 @@ public class ColumnDetailActivity extends BaseActivity implements ColumnDetailVi
     }
 
     private void initColumnDetail(ColumnDetail columnDetail) {
-        Glide.with(mContext).load(columnDetail.getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mCircleImageView);
+        Glide.with(mContext).load(columnDetail.getAvatar().getTemplate("b")).diskCacheStrategy(DiskCacheStrategy.ALL).into(mCircleImageView);
     }
 
     @Override

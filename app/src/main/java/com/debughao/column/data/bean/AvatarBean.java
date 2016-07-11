@@ -20,8 +20,8 @@ public class AvatarBean implements Serializable {
         this.id = id;
     }
 
-    public String getTemplate() {
-        return template.replace("{id}", id).replace("{size}", "b");
+    public String getTemplate(String b) {
+        return template.replace("{id}", id).replace("{size}", b);
     }
 
     public void setTemplate(String template) {

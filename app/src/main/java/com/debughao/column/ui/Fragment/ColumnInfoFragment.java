@@ -12,7 +12,6 @@ import com.debughao.column.data.bean.ColumnDetail;
 import com.debughao.column.eventbus.EventCenter;
 import com.debughao.column.widget.view.CircleImageView;
 import com.debughao.column.widget.view.ZHTopicView;
-import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
 
@@ -80,8 +79,8 @@ public class ColumnInfoFragment extends BaseFragment {
         mEditorsPostsNum.setText(columnDetail.getPostsCount()+" 篇文章");
         mEditorsInfo.setText(""+columnDetail.getCreator().getBio());
         mEditorsName.setText(columnDetail.getCreator().getName());
-        Glide.with(mContext).load(columnDetail.getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mColumnAvatar);
-        Glide.with(mContext).load(columnDetail.getCreator().getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mEditorsAvatar);
+        Glide.with(mContext).load(columnDetail.getAvatar().getTemplate("b")).diskCacheStrategy(DiskCacheStrategy.ALL).into(mColumnAvatar);
+        Glide.with(mContext).load(columnDetail.getCreator().getAvatar().getTemplate("b")).diskCacheStrategy(DiskCacheStrategy.ALL).into(mEditorsAvatar);
         mZHTopicView.setPostTopicsBean(columnDetail.getPostTopics());
     }
 

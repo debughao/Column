@@ -1,7 +1,6 @@
 package com.debughao.column.adapter;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +79,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemViewHolder) holder).mDesc.setText(Column.getDescription());
             ((ItemViewHolder) holder).mPostsCount.setText(Column.getPostsCount()+" 篇文章");
             ((ItemViewHolder) holder).mFollowersCount.setText(""+ Column.getFollowersCount()+" 人关注");
-            Glide.with(mContext).load(Column.getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL)
+            Glide.with(mContext).load(Column.getAvatar().getTemplate("m")).diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(((ItemViewHolder) holder).mNewsImg);
         }
     }

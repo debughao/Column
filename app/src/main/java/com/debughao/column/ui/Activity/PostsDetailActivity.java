@@ -182,7 +182,7 @@ public class PostsDetailActivity extends BaseActivity implements PostsDetailView
         this.mPostsBean = postsBean;
         String publishedTime = postsBean.getPublishedTime();
         mPostsAutor.setText(postsBean.getAuthor().getName() + " · " + DateHelper.getInstance().getTimeStateString(publishedTime));
-        Glide.with(mContext).load(postsBean.getAuthor().getAvatar().getTemplate()).diskCacheStrategy(DiskCacheStrategy.ALL).into(mPostsAutorAvatar);
+        Glide.with(mContext).load(postsBean.getAuthor().getAvatar().getTemplate("b")).diskCacheStrategy(DiskCacheStrategy.ALL).into(mPostsAutorAvatar);
         if (!TextUtils.isEmpty(mTitleImage)) {
             Glide.with(mContext).load(mTitleImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(mImageView);
         }
